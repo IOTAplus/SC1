@@ -8,8 +8,8 @@ but first the Tokens must be created
 
 ## Creating IEXP tokens
 We can do this via a GUI wallet or using the cli-wallet available on goshimmer repo
-and using (LocalSetup/config.json) on the cli-wallet installation path, install cli-wallet from goshimmer releases
-f.e https://github.com/iotaledger/goshimmer/releases/download/v0.7.7/goshimmer-0.7.7_Linux_x86_64.tar.gz
+and using (``LocalSetup/config.json``) on the cli-wallet installation path, install cli-wallet from goshimmer releases
+f.e (https://github.com/iotaledger/goshimmer/releases/download/v0.7.7/goshimmer-0.7.7_Linux_x86_64.tar.gz)
 
 * Init wallet
 ```
@@ -52,7 +52,7 @@ schema -rust,go
 ```
 schema -rust,go 
 ```
-### Wasm 
+### Wasm (buid/deploy SC)
 * Run ``wasm-pack`` build inside your rust/go files 
 * Deploy the contract f.e
 ```
