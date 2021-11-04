@@ -46,11 +46,11 @@ schema -init
 ```
 * Generate Go/Rust code
 ```
-schema -rust,go 
+schema -rust -go 
 ```
 * Change the schema.yaml file and run again:
 ```
-schema -rust,go 
+schema -rust -go 
 ```
 ### Wasm (buid/deploy SC)
 * Run ``wasm-pack`` build inside your rust/go files 
