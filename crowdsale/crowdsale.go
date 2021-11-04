@@ -18,3 +18,15 @@ func funcSetOwner(ctx wasmlib.ScFuncContext, f *SetOwnerContext) {
 
 func viewGetOwner(ctx wasmlib.ScViewContext, f *GetOwnerContext) {
 }
+
+func funcPurchase(ctx wasmlib.ScFuncContext, f *PurchaseContext) {
+}
+
+func funcWithdraw(ctx wasmlib.ScFuncContext, f *WithdrawContext) {
+}
+
+func viewPurchaseInfo(ctx wasmlib.ScViewContext, f *PurchaseInfoContext) {
+}
+
+func viewPurchaseView(ctx wasmlib.ScViewContext, f *PurchaseViewContext) {
+}

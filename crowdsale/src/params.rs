@@ -37,6 +37,28 @@ impl MutableInitParams {
 }
 
 #[derive(Clone, Copy)]
+pub struct ImmutablePurchaseParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutablePurchaseParams {
+    pub fn feedback(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_PARAM_FEEDBACK))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutablePurchaseParams {
+    pub(crate) id: i32,
+}
+
+impl MutablePurchaseParams {
+    pub fn feedback(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_PARAM_FEEDBACK))
+    }
+}
+
+#[derive(Clone, Copy)]
 pub struct ImmutableSetOwnerParams {
     pub(crate) id: i32,
 }
@@ -55,5 +77,49 @@ pub struct MutableSetOwnerParams {
 impl MutableSetOwnerParams {
     pub fn owner(&self) -> ScMutableAgentID {
         ScMutableAgentID::new(self.id, idx_map(IDX_PARAM_OWNER))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutableWithdrawParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableWithdrawParams {
+    pub fn amount(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_PARAM_AMOUNT))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableWithdrawParams {
+    pub(crate) id: i32,
+}
+
+impl MutableWithdrawParams {
+    pub fn amount(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_PARAM_AMOUNT))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutablePurchaseViewParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutablePurchaseViewParams {
+    pub fn nr(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_PARAM_NR))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutablePurchaseViewParams {
+    pub(crate) id: i32,
+}
+
+impl MutablePurchaseViewParams {
+    pub fn nr(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_PARAM_NR))
     }
 }

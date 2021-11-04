@@ -13,6 +13,7 @@ use wasmlib::host::*;
 
 use crate::*;
 use crate::keys::*;
+use crate::types::*;
 
 #[derive(Clone, Copy)]
 pub struct ImmutableGetOwnerResults {
@@ -33,5 +34,97 @@ pub struct MutableGetOwnerResults {
 impl MutableGetOwnerResults {
     pub fn owner(&self) -> ScMutableAgentID {
         ScMutableAgentID::new(self.id, idx_map(IDX_RESULT_OWNER))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutablePurchaseInfoResults {
+    pub(crate) id: i32,
+}
+
+impl ImmutablePurchaseInfoResults {
+    pub fn count(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_RESULT_COUNT))
+    }
+
+    pub fn max_purchase(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_RESULT_MAX_PURCHASE))
+    }
+
+    pub fn total_purchase(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_RESULT_TOTAL_PURCHASE))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutablePurchaseInfoResults {
+    pub(crate) id: i32,
+}
+
+impl MutablePurchaseInfoResults {
+    pub fn count(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_RESULT_COUNT))
+    }
+
+    pub fn max_purchase(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_RESULT_MAX_PURCHASE))
+    }
+
+    pub fn total_purchase(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_RESULT_TOTAL_PURCHASE))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutablePurchaseViewResults {
+    pub(crate) id: i32,
+}
+
+impl ImmutablePurchaseViewResults {
+    pub fn amount(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_RESULT_AMOUNT))
+    }
+
+    pub fn error(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_RESULT_ERROR))
+    }
+
+    pub fn feedback(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_RESULT_FEEDBACK))
+    }
+
+    pub fn purchaser(&self) -> ScImmutableAgentID {
+        ScImmutableAgentID::new(self.id, idx_map(IDX_RESULT_PURCHASER))
+    }
+
+    pub fn timestamp(&self) -> ScImmutableInt64 {
+        ScImmutableInt64::new(self.id, idx_map(IDX_RESULT_TIMESTAMP))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutablePurchaseViewResults {
+    pub(crate) id: i32,
+}
+
+impl MutablePurchaseViewResults {
+    pub fn amount(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_RESULT_AMOUNT))
+    }
+
+    pub fn error(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_RESULT_ERROR))
+    }
+
+    pub fn feedback(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_RESULT_FEEDBACK))
+    }
+
+    pub fn purchaser(&self) -> ScMutableAgentID {
+        ScMutableAgentID::new(self.id, idx_map(IDX_RESULT_PURCHASER))
+    }
+
+    pub fn timestamp(&self) -> ScMutableInt64 {
+        ScMutableInt64::new(self.id, idx_map(IDX_RESULT_TIMESTAMP))
     }
 }

@@ -13,8 +13,12 @@ import "github.com/iotaledger/wasp/packages/vm/wasmlib"
 func OnLoad() {
 	exports := wasmlib.NewScExports()
 	exports.AddFunc(FuncInit, funcInitThunk)
+	exports.AddFunc(FuncPurchase, funcPurchaseThunk)
 	exports.AddFunc(FuncSetOwner, funcSetOwnerThunk)
+	exports.AddFunc(FuncWithdraw, funcWithdrawThunk)
 	exports.AddView(ViewGetOwner, viewGetOwnerThunk)
+	exports.AddView(ViewPurchaseInfo, viewPurchaseInfoThunk)
+	exports.AddView(ViewPurchaseView, viewPurchaseViewThunk)
 
 	for i, key := range keyMap {
 		idxMap[i] = key.KeyID()
@@ -38,6 +42,25 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 	}
 	funcInit(ctx, f)
 	ctx.Log("crowdsale.funcInit ok")
+}
+
+type PurchaseContext struct {
+	Params ImmutablePurchaseParams
+	State  MutableCrowdSaleState
+}
+
+func funcPurchaseThunk(ctx wasmlib.ScFuncContext) {
+	ctx.Log("crowdsale.funcPurchase")
+	f := &PurchaseContext{
+		Params: ImmutablePurchaseParams{
+			id: wasmlib.OBJ_ID_PARAMS,
+		},
+		State: MutableCrowdSaleState{
+			id: wasmlib.OBJ_ID_STATE,
+		},
+	}
+	funcPurchase(ctx, f)
+	ctx.Log("crowdsale.funcPurchase ok")
 }
 
 type SetOwnerContext struct {
@@ -65,6 +88,28 @@ func funcSetOwnerThunk(ctx wasmlib.ScFuncContext) {
 	ctx.Log("crowdsale.funcSetOwner ok")
 }
 
+type WithdrawContext struct {
+	Params ImmutableWithdrawParams
+	State  MutableCrowdSaleState
+}
+
+func funcWithdrawThunk(ctx wasmlib.ScFuncContext) {
+	ctx.Log("crowdsale.funcWithdraw")
+	// only SC creator can withdraw funds
+	ctx.Require(ctx.Caller() == ctx.ContractCreator(), "no permission")
+
+	f := &WithdrawContext{
+		Params: ImmutableWithdrawParams{
+			id: wasmlib.OBJ_ID_PARAMS,
+		},
+		State: MutableCrowdSaleState{
+			id: wasmlib.OBJ_ID_STATE,
+		},
+	}
+	funcWithdraw(ctx, f)
+	ctx.Log("crowdsale.funcWithdraw ok")
+}
+
 type GetOwnerContext struct {
 	Results MutableGetOwnerResults
 	State   ImmutableCrowdSaleState
@@ -82,4 +127,47 @@ func viewGetOwnerThunk(ctx wasmlib.ScViewContext) {
 	}
 	viewGetOwner(ctx, f)
 	ctx.Log("crowdsale.viewGetOwner ok")
+}
+
+type PurchaseInfoContext struct {
+	Results MutablePurchaseInfoResults
+	State   ImmutableCrowdSaleState
+}
+
+func viewPurchaseInfoThunk(ctx wasmlib.ScViewContext) {
+	ctx.Log("crowdsale.viewPurchaseInfo")
+	f := &PurchaseInfoContext{
+		Results: MutablePurchaseInfoResults{
+			id: wasmlib.OBJ_ID_RESULTS,
+		},
+		State: ImmutableCrowdSaleState{
+			id: wasmlib.OBJ_ID_STATE,
+		},
+	}
+	viewPurchaseInfo(ctx, f)
+	ctx.Log("crowdsale.viewPurchaseInfo ok")
+}
+
+type PurchaseViewContext struct {
+	Params  ImmutablePurchaseViewParams
+	Results MutablePurchaseViewResults
+	State   ImmutableCrowdSaleState
+}
+
+func viewPurchaseViewThunk(ctx wasmlib.ScViewContext) {
+	ctx.Log("crowdsale.viewPurchaseView")
+	f := &PurchaseViewContext{
+		Params: ImmutablePurchaseViewParams{
+			id: wasmlib.OBJ_ID_PARAMS,
+		},
+		Results: MutablePurchaseViewResults{
+			id: wasmlib.OBJ_ID_RESULTS,
+		},
+		State: ImmutableCrowdSaleState{
+			id: wasmlib.OBJ_ID_STATE,
+		},
+	}
+	ctx.Require(f.Params.Nr().Exists(), "missing mandatory nr")
+	viewPurchaseView(ctx, f)
+	ctx.Log("crowdsale.viewPurchaseView ok")
 }

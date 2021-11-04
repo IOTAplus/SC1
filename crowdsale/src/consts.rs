@@ -12,21 +12,43 @@
 use wasmlib::*;
 
 pub const SC_NAME:        &str = "crowdsale";
-pub const SC_DESCRIPTION: &str = "CrowdSale description";
+pub const SC_DESCRIPTION: &str = "CrowdSale IEXP tokens";
 pub const HSC_NAME:       ScHname = ScHname(0x0da82426);
 
-pub const PARAM_OWNER: &str = "owner";
+pub const PARAM_AMOUNT:   &str = "amount";
+pub const PARAM_FEEDBACK: &str = "feedback";
+pub const PARAM_NR:       &str = "nr";
+pub const PARAM_OWNER:    &str = "owner";
 
-pub const RESULT_OWNER: &str = "owner";
+pub const RESULT_AMOUNT:         &str = "amount";
+pub const RESULT_COUNT:          &str = "count";
+pub const RESULT_ERROR:          &str = "error";
+pub const RESULT_FEEDBACK:       &str = "feedback";
+pub const RESULT_MAX_PURCHASE:   &str = "maxPurchase";
+pub const RESULT_OWNER:          &str = "owner";
+pub const RESULT_PURCHASER:      &str = "purchaser";
+pub const RESULT_TIMESTAMP:      &str = "timestamp";
+pub const RESULT_TOTAL_PURCHASE: &str = "totalPurchase";
 
-pub const STATE_OWNER: &str = "owner";
+pub const STATE_LOG:            &str = "log";
+pub const STATE_MAX_PURCHASE:   &str = "maxPurchase";
+pub const STATE_OWNER:          &str = "owner";
+pub const STATE_TOTAL_PURCHASE: &str = "totalPurchase";
 
-pub const FUNC_INIT:      &str = "init";
-pub const FUNC_SET_OWNER: &str = "setOwner";
-pub const VIEW_GET_OWNER: &str = "getOwner";
+pub const FUNC_INIT:          &str = "init";
+pub const FUNC_PURCHASE:      &str = "purchase";
+pub const FUNC_SET_OWNER:     &str = "setOwner";
+pub const FUNC_WITHDRAW:      &str = "withdraw";
+pub const VIEW_GET_OWNER:     &str = "getOwner";
+pub const VIEW_PURCHASE_INFO: &str = "purchaseInfo";
+pub const VIEW_PURCHASE_VIEW: &str = "purchaseView";
 
-pub const HFUNC_INIT:      ScHname = ScHname(0x1f44d644);
-pub const HFUNC_SET_OWNER: ScHname = ScHname(0x2a15fe7b);
-pub const HVIEW_GET_OWNER: ScHname = ScHname(0x137107a6);
+pub const HFUNC_INIT:          ScHname = ScHname(0x1f44d644);
+pub const HFUNC_PURCHASE:      ScHname = ScHname(0xba7db944);
+pub const HFUNC_SET_OWNER:     ScHname = ScHname(0x2a15fe7b);
+pub const HFUNC_WITHDRAW:      ScHname = ScHname(0x9dcc0f41);
+pub const HVIEW_GET_OWNER:     ScHname = ScHname(0x137107a6);
+pub const HVIEW_PURCHASE_INFO: ScHname = ScHname(0x4383892e);
+pub const HVIEW_PURCHASE_VIEW: ScHname = ScHname(0x4c6bda2f);
 
 // @formatter:on

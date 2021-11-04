@@ -22,14 +22,35 @@ pub struct InitCall {
     pub params: MutableInitParams,
 }
 
+pub struct PurchaseCall {
+    pub func:   ScFunc,
+    pub params: MutablePurchaseParams,
+}
+
 pub struct SetOwnerCall {
     pub func:   ScFunc,
     pub params: MutableSetOwnerParams,
 }
 
+pub struct WithdrawCall {
+    pub func:   ScFunc,
+    pub params: MutableWithdrawParams,
+}
+
 pub struct GetOwnerCall {
     pub func:    ScView,
     pub results: ImmutableGetOwnerResults,
+}
+
+pub struct PurchaseInfoCall {
+    pub func:    ScView,
+    pub results: ImmutablePurchaseInfoResults,
+}
+
+pub struct PurchaseViewCall {
+    pub func:    ScView,
+    pub params:  MutablePurchaseViewParams,
+    pub results: ImmutablePurchaseViewResults,
 }
 
 pub struct ScFuncs {
@@ -44,10 +65,26 @@ impl ScFuncs {
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
     }
+    pub fn purchase(_ctx: & dyn ScFuncCallContext) -> PurchaseCall {
+        let mut f = PurchaseCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_PURCHASE),
+            params: MutablePurchaseParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
     pub fn set_owner(_ctx: & dyn ScFuncCallContext) -> SetOwnerCall {
         let mut f = SetOwnerCall {
             func:   ScFunc::new(HSC_NAME, HFUNC_SET_OWNER),
             params: MutableSetOwnerParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn withdraw(_ctx: & dyn ScFuncCallContext) -> WithdrawCall {
+        let mut f = WithdrawCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_WITHDRAW),
+            params: MutableWithdrawParams { id: 0 },
         };
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
@@ -58,6 +95,23 @@ impl ScFuncs {
             results: ImmutableGetOwnerResults { id: 0 },
         };
         f.func.set_ptrs(ptr::null_mut(), &mut f.results.id);
+        f
+    }
+    pub fn purchase_info(_ctx: & dyn ScViewCallContext) -> PurchaseInfoCall {
+        let mut f = PurchaseInfoCall {
+            func:    ScView::new(HSC_NAME, HVIEW_PURCHASE_INFO),
+            results: ImmutablePurchaseInfoResults { id: 0 },
+        };
+        f.func.set_ptrs(ptr::null_mut(), &mut f.results.id);
+        f
+    }
+    pub fn purchase_view(_ctx: & dyn ScViewCallContext) -> PurchaseViewCall {
+        let mut f = PurchaseViewCall {
+            func:    ScView::new(HSC_NAME, HVIEW_PURCHASE_VIEW),
+            params:  MutablePurchaseViewParams { id: 0 },
+            results: ImmutablePurchaseViewResults { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, &mut f.results.id);
         f
     }
 }

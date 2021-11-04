@@ -26,14 +26,19 @@ mod keys;
 mod params;
 mod results;
 mod state;
+mod types;
 mod crowdsale;
 
 #[no_mangle]
 fn on_load() {
     let exports = ScExports::new();
     exports.add_func(FUNC_INIT, func_init_thunk);
+    exports.add_func(FUNC_PURCHASE, func_purchase_thunk);
     exports.add_func(FUNC_SET_OWNER, func_set_owner_thunk);
+    exports.add_func(FUNC_WITHDRAW, func_withdraw_thunk);
     exports.add_view(VIEW_GET_OWNER, view_get_owner_thunk);
+    exports.add_view(VIEW_PURCHASE_INFO, view_purchase_info_thunk);
+    exports.add_view(VIEW_PURCHASE_VIEW, view_purchase_view_thunk);
 
     unsafe {
         for i in 0..KEY_MAP_LEN {
@@ -61,6 +66,25 @@ fn func_init_thunk(ctx: &ScFuncContext) {
     ctx.log("crowdsale.funcInit ok");
 }
 
+pub struct PurchaseContext {
+    params: ImmutablePurchaseParams,
+    state:  MutableCrowdSaleState,
+}
+
+fn func_purchase_thunk(ctx: &ScFuncContext) {
+    ctx.log("crowdsale.funcPurchase");
+    let f = PurchaseContext {
+        params: ImmutablePurchaseParams {
+            id: OBJ_ID_PARAMS,
+        },
+        state: MutableCrowdSaleState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    func_purchase(ctx, &f);
+    ctx.log("crowdsale.funcPurchase ok");
+}
+
 pub struct SetOwnerContext {
     params: ImmutableSetOwnerParams,
     state:  MutableCrowdSaleState,
@@ -86,6 +110,28 @@ fn func_set_owner_thunk(ctx: &ScFuncContext) {
     ctx.log("crowdsale.funcSetOwner ok");
 }
 
+pub struct WithdrawContext {
+    params: ImmutableWithdrawParams,
+    state:  MutableCrowdSaleState,
+}
+
+fn func_withdraw_thunk(ctx: &ScFuncContext) {
+    ctx.log("crowdsale.funcWithdraw");
+    // only SC creator can withdraw funds
+    ctx.require(ctx.caller() == ctx.contract_creator(), "no permission");
+
+    let f = WithdrawContext {
+        params: ImmutableWithdrawParams {
+            id: OBJ_ID_PARAMS,
+        },
+        state: MutableCrowdSaleState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    func_withdraw(ctx, &f);
+    ctx.log("crowdsale.funcWithdraw ok");
+}
+
 pub struct GetOwnerContext {
     results: MutableGetOwnerResults,
     state:   ImmutableCrowdSaleState,
@@ -103,6 +149,49 @@ fn view_get_owner_thunk(ctx: &ScViewContext) {
     };
     view_get_owner(ctx, &f);
     ctx.log("crowdsale.viewGetOwner ok");
+}
+
+pub struct PurchaseInfoContext {
+    results: MutablePurchaseInfoResults,
+    state:   ImmutableCrowdSaleState,
+}
+
+fn view_purchase_info_thunk(ctx: &ScViewContext) {
+    ctx.log("crowdsale.viewPurchaseInfo");
+    let f = PurchaseInfoContext {
+        results: MutablePurchaseInfoResults {
+            id: OBJ_ID_RESULTS,
+        },
+        state: ImmutableCrowdSaleState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    view_purchase_info(ctx, &f);
+    ctx.log("crowdsale.viewPurchaseInfo ok");
+}
+
+pub struct PurchaseViewContext {
+    params:  ImmutablePurchaseViewParams,
+    results: MutablePurchaseViewResults,
+    state:   ImmutableCrowdSaleState,
+}
+
+fn view_purchase_view_thunk(ctx: &ScViewContext) {
+    ctx.log("crowdsale.viewPurchaseView");
+    let f = PurchaseViewContext {
+        params: ImmutablePurchaseViewParams {
+            id: OBJ_ID_PARAMS,
+        },
+        results: MutablePurchaseViewResults {
+            id: OBJ_ID_RESULTS,
+        },
+        state: ImmutableCrowdSaleState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    ctx.require(f.params.nr().exists(), "missing mandatory nr");
+    view_purchase_view(ctx, &f);
+    ctx.log("crowdsale.viewPurchaseView ok");
 }
 
 // @formatter:on

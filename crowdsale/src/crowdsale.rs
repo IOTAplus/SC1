@@ -18,3 +18,15 @@ pub fn func_set_owner(_ctx: &ScFuncContext, _f: &SetOwnerContext) {
 
 pub fn view_get_owner(_ctx: &ScViewContext, _f: &GetOwnerContext) {
 }
+
+pub fn func_purchase(_ctx: &ScFuncContext, _f: &PurchaseContext) {
+}
+
+pub fn func_withdraw(_ctx: &ScFuncContext, _f: &WithdrawContext) {
+}
+
+pub fn view_purchase_info(_ctx: &ScViewContext, _f: &PurchaseInfoContext) {
+}
+
+pub fn view_purchase_view(_ctx: &ScViewContext, _f: &PurchaseViewContext) {
+}

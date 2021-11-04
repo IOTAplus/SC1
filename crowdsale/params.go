@@ -25,6 +25,22 @@ func (s MutableInitParams) Owner() wasmlib.ScMutableAgentID {
 	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxParamOwner])
 }
 
+type ImmutablePurchaseParams struct {
+	id int32
+}
+
+func (s ImmutablePurchaseParams) Feedback() wasmlib.ScImmutableString {
+	return wasmlib.NewScImmutableString(s.id, idxMap[IdxParamFeedback])
+}
+
+type MutablePurchaseParams struct {
+	id int32
+}
+
+func (s MutablePurchaseParams) Feedback() wasmlib.ScMutableString {
+	return wasmlib.NewScMutableString(s.id, idxMap[IdxParamFeedback])
+}
+
 type ImmutableSetOwnerParams struct {
 	id int32
 }
@@ -39,4 +55,36 @@ type MutableSetOwnerParams struct {
 
 func (s MutableSetOwnerParams) Owner() wasmlib.ScMutableAgentID {
 	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxParamOwner])
+}
+
+type ImmutableWithdrawParams struct {
+	id int32
+}
+
+func (s ImmutableWithdrawParams) Amount() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxParamAmount])
+}
+
+type MutableWithdrawParams struct {
+	id int32
+}
+
+func (s MutableWithdrawParams) Amount() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxParamAmount])
+}
+
+type ImmutablePurchaseViewParams struct {
+	id int32
+}
+
+func (s ImmutablePurchaseViewParams) Nr() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxParamNr])
+}
+
+type MutablePurchaseViewParams struct {
+	id int32
+}
+
+func (s MutablePurchaseViewParams) Nr() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxParamNr])
 }

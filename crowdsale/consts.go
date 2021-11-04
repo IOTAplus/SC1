@@ -11,24 +11,52 @@ import "github.com/iotaledger/wasp/packages/vm/wasmlib"
 
 const (
 	ScName        = "crowdsale"
-	ScDescription = "CrowdSale description"
+	ScDescription = "CrowdSale IEXP tokens"
 	HScName       = wasmlib.ScHname(0x0da82426)
 )
 
-const ParamOwner = wasmlib.Key("owner")
-
-const ResultOwner = wasmlib.Key("owner")
-
-const StateOwner = wasmlib.Key("owner")
-
 const (
-	FuncInit     = "init"
-	FuncSetOwner = "setOwner"
-	ViewGetOwner = "getOwner"
+	ParamAmount   = wasmlib.Key("amount")
+	ParamFeedback = wasmlib.Key("feedback")
+	ParamNr       = wasmlib.Key("nr")
+	ParamOwner    = wasmlib.Key("owner")
 )
 
 const (
-	HFuncInit     = wasmlib.ScHname(0x1f44d644)
-	HFuncSetOwner = wasmlib.ScHname(0x2a15fe7b)
-	HViewGetOwner = wasmlib.ScHname(0x137107a6)
+	ResultAmount        = wasmlib.Key("amount")
+	ResultCount         = wasmlib.Key("count")
+	ResultError         = wasmlib.Key("error")
+	ResultFeedback      = wasmlib.Key("feedback")
+	ResultMaxPurchase   = wasmlib.Key("maxPurchase")
+	ResultOwner         = wasmlib.Key("owner")
+	ResultPurchaser     = wasmlib.Key("purchaser")
+	ResultTimestamp     = wasmlib.Key("timestamp")
+	ResultTotalPurchase = wasmlib.Key("totalPurchase")
+)
+
+const (
+	StateLog           = wasmlib.Key("log")
+	StateMaxPurchase   = wasmlib.Key("maxPurchase")
+	StateOwner         = wasmlib.Key("owner")
+	StateTotalPurchase = wasmlib.Key("totalPurchase")
+)
+
+const (
+	FuncInit         = "init"
+	FuncPurchase     = "purchase"
+	FuncSetOwner     = "setOwner"
+	FuncWithdraw     = "withdraw"
+	ViewGetOwner     = "getOwner"
+	ViewPurchaseInfo = "purchaseInfo"
+	ViewPurchaseView = "purchaseView"
+)
+
+const (
+	HFuncInit         = wasmlib.ScHname(0x1f44d644)
+	HFuncPurchase     = wasmlib.ScHname(0xba7db944)
+	HFuncSetOwner     = wasmlib.ScHname(0x2a15fe7b)
+	HFuncWithdraw     = wasmlib.ScHname(0x9dcc0f41)
+	HViewGetOwner     = wasmlib.ScHname(0x137107a6)
+	HViewPurchaseInfo = wasmlib.ScHname(0x4383892e)
+	HViewPurchaseView = wasmlib.ScHname(0x4c6bda2f)
 )

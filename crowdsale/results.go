@@ -24,3 +24,83 @@ type MutableGetOwnerResults struct {
 func (s MutableGetOwnerResults) Owner() wasmlib.ScMutableAgentID {
 	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxResultOwner])
 }
+
+type ImmutablePurchaseInfoResults struct {
+	id int32
+}
+
+func (s ImmutablePurchaseInfoResults) Count() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultCount])
+}
+
+func (s ImmutablePurchaseInfoResults) MaxPurchase() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultMaxPurchase])
+}
+
+func (s ImmutablePurchaseInfoResults) TotalPurchase() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultTotalPurchase])
+}
+
+type MutablePurchaseInfoResults struct {
+	id int32
+}
+
+func (s MutablePurchaseInfoResults) Count() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultCount])
+}
+
+func (s MutablePurchaseInfoResults) MaxPurchase() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultMaxPurchase])
+}
+
+func (s MutablePurchaseInfoResults) TotalPurchase() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultTotalPurchase])
+}
+
+type ImmutablePurchaseViewResults struct {
+	id int32
+}
+
+func (s ImmutablePurchaseViewResults) Amount() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultAmount])
+}
+
+func (s ImmutablePurchaseViewResults) Error() wasmlib.ScImmutableString {
+	return wasmlib.NewScImmutableString(s.id, idxMap[IdxResultError])
+}
+
+func (s ImmutablePurchaseViewResults) Feedback() wasmlib.ScImmutableString {
+	return wasmlib.NewScImmutableString(s.id, idxMap[IdxResultFeedback])
+}
+
+func (s ImmutablePurchaseViewResults) Purchaser() wasmlib.ScImmutableAgentID {
+	return wasmlib.NewScImmutableAgentID(s.id, idxMap[IdxResultPurchaser])
+}
+
+func (s ImmutablePurchaseViewResults) Timestamp() wasmlib.ScImmutableInt64 {
+	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultTimestamp])
+}
+
+type MutablePurchaseViewResults struct {
+	id int32
+}
+
+func (s MutablePurchaseViewResults) Amount() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultAmount])
+}
+
+func (s MutablePurchaseViewResults) Error() wasmlib.ScMutableString {
+	return wasmlib.NewScMutableString(s.id, idxMap[IdxResultError])
+}
+
+func (s MutablePurchaseViewResults) Feedback() wasmlib.ScMutableString {
+	return wasmlib.NewScMutableString(s.id, idxMap[IdxResultFeedback])
+}
+
+func (s MutablePurchaseViewResults) Purchaser() wasmlib.ScMutableAgentID {
+	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxResultPurchaser])
+}
+
+func (s MutablePurchaseViewResults) Timestamp() wasmlib.ScMutableInt64 {
+	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultTimestamp])
+}

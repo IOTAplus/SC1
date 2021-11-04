@@ -14,14 +14,35 @@ type InitCall struct {
 	Params MutableInitParams
 }
 
+type PurchaseCall struct {
+	Func   *wasmlib.ScFunc
+	Params MutablePurchaseParams
+}
+
 type SetOwnerCall struct {
 	Func   *wasmlib.ScFunc
 	Params MutableSetOwnerParams
 }
 
+type WithdrawCall struct {
+	Func   *wasmlib.ScFunc
+	Params MutableWithdrawParams
+}
+
 type GetOwnerCall struct {
 	Func    *wasmlib.ScView
 	Results ImmutableGetOwnerResults
+}
+
+type PurchaseInfoCall struct {
+	Func    *wasmlib.ScView
+	Results ImmutablePurchaseInfoResults
+}
+
+type PurchaseViewCall struct {
+	Func    *wasmlib.ScView
+	Params  MutablePurchaseViewParams
+	Results ImmutablePurchaseViewResults
 }
 
 type Funcs struct{}
@@ -34,8 +55,20 @@ func (sc Funcs) Init(ctx wasmlib.ScFuncCallContext) *InitCall {
 	return f
 }
 
+func (sc Funcs) Purchase(ctx wasmlib.ScFuncCallContext) *PurchaseCall {
+	f := &PurchaseCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncPurchase)}
+	f.Func.SetPtrs(&f.Params.id, nil)
+	return f
+}
+
 func (sc Funcs) SetOwner(ctx wasmlib.ScFuncCallContext) *SetOwnerCall {
 	f := &SetOwnerCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncSetOwner)}
+	f.Func.SetPtrs(&f.Params.id, nil)
+	return f
+}
+
+func (sc Funcs) Withdraw(ctx wasmlib.ScFuncCallContext) *WithdrawCall {
+	f := &WithdrawCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncWithdraw)}
 	f.Func.SetPtrs(&f.Params.id, nil)
 	return f
 }
@@ -43,5 +76,17 @@ func (sc Funcs) SetOwner(ctx wasmlib.ScFuncCallContext) *SetOwnerCall {
 func (sc Funcs) GetOwner(ctx wasmlib.ScViewCallContext) *GetOwnerCall {
 	f := &GetOwnerCall{Func: wasmlib.NewScView(ctx, HScName, HViewGetOwner)}
 	f.Func.SetPtrs(nil, &f.Results.id)
+	return f
+}
+
+func (sc Funcs) PurchaseInfo(ctx wasmlib.ScViewCallContext) *PurchaseInfoCall {
+	f := &PurchaseInfoCall{Func: wasmlib.NewScView(ctx, HScName, HViewPurchaseInfo)}
+	f.Func.SetPtrs(nil, &f.Results.id)
+	return f
+}
+
+func (sc Funcs) PurchaseView(ctx wasmlib.ScViewCallContext) *PurchaseViewCall {
+	f := &PurchaseViewCall{Func: wasmlib.NewScView(ctx, HScName, HViewPurchaseView)}
+	f.Func.SetPtrs(&f.Params.id, &f.Results.id)
 	return f
 }

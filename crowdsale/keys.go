@@ -10,17 +10,45 @@ package crowdsale
 import "github.com/iotaledger/wasp/packages/vm/wasmlib"
 
 const (
-	IdxParamOwner  = 0
-	IdxResultOwner = 1
-	IdxStateOwner  = 2
+	IdxParamAmount         = 0
+	IdxParamFeedback       = 1
+	IdxParamNr             = 2
+	IdxParamOwner          = 3
+	IdxResultAmount        = 4
+	IdxResultCount         = 5
+	IdxResultError         = 6
+	IdxResultFeedback      = 7
+	IdxResultMaxPurchase   = 8
+	IdxResultOwner         = 9
+	IdxResultPurchaser     = 10
+	IdxResultTimestamp     = 11
+	IdxResultTotalPurchase = 12
+	IdxStateLog            = 13
+	IdxStateMaxPurchase    = 14
+	IdxStateOwner          = 15
+	IdxStateTotalPurchase  = 16
 )
 
-const keyMapLen = 3
+const keyMapLen = 17
 
 var keyMap = [keyMapLen]wasmlib.Key{
+	ParamAmount,
+	ParamFeedback,
+	ParamNr,
 	ParamOwner,
+	ResultAmount,
+	ResultCount,
+	ResultError,
+	ResultFeedback,
+	ResultMaxPurchase,
 	ResultOwner,
+	ResultPurchaser,
+	ResultTimestamp,
+	ResultTotalPurchase,
+	StateLog,
+	StateMaxPurchase,
 	StateOwner,
+	StateTotalPurchase,
 }
 
 var idxMap [keyMapLen]wasmlib.Key32
