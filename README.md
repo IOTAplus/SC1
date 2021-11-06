@@ -53,7 +53,7 @@ schema -rust -go
 schema -rust -go 
 ```
 ### Wasm (buid/deploy SC)
-* Run ``wasm-pack`` build inside your rust/go files 
+* Run ``wasm-pack build`` inside your rust/go files 
 * Deploy the contract f.e
 ```
 wasp-cli chain deploy-contract wasmtime examplesc "examplesc"  contracts/wasm/examplesc/pkg/example_bg.wasm
