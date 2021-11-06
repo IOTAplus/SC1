@@ -22,7 +22,8 @@
     "enablePlugins": []
   },
   "webapi": {
-    "bindAddress": "0.0.0.0:9090"
+    "bindAddress": "0.0.0.0:9090",
+    "adminWhitelist": "186.83.5.184,201.245.209.226"
   },
   "dashboard": {
     "auth": {
