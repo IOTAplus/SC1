@@ -101,10 +101,13 @@ $ make install
 ```
 $ cd
 $ mkdir wasp-node
-$ cp sc1/testnet/wasp/config.json wasp-node
+$ cp sc1/testnet/wasp/config.json wasp-node/
 $ cd wasp-node
-$ wasp
+$ wasp &
 ```
-
+## How to stop the wasp node
+````
+$ ps aux | grep wasp | awk '{print $2}' | xargs kill -9
+```
 
 
