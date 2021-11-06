@@ -96,7 +96,6 @@ $ git checkout develop
 $ make install
 ```
 
-
 ## Running the wasp node
 ```
 $ cd
@@ -106,8 +105,9 @@ $ cd wasp-node
 $ wasp &
 ```
 ## How to stop the wasp node
-````
+```
 $ ps aux | grep wasp | awk '{print $2}' | xargs kill -9
 ```
 
-
+## Test the Dashboard
+Go to the [dashboard](http://31.220.111.3:7000/) and login with `wasp/wasp`
