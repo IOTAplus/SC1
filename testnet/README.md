@@ -1,6 +1,7 @@
 # Requirements
 * [golang](https://golang.org/doc/install)
-* [wasmtime](https://wasmtime.dev/installation.html)
+* [rust](https://www.rust-lang.org/en-US/install.html)
+* [wasmtime](https://wasmtime.dev)
 * [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
 
 ## Install dependencies
@@ -49,7 +50,7 @@ Source the .bashrc file to make the changes permanent
 $ source ~/.bashrc
 ```
 
-Copy the file `testnet/goshimmer/config.json` to `~/bin/config.json`
+Copy the file `sc1/testnet/goshimmer/config.json` to `~/bin/config.json`
 
 ### Initialize the wallet
 ```
@@ -59,7 +60,7 @@ $ cli-wallet init
 This will create a new wallet and the state file `~/bin/wallet.dat`, in addition you will need to save your seed.
 
 ### Request funds
-In order to get funds from the Goshimmer node that is setup in the `testnet/goshimmer/config.json` you need to run the following command:
+In order to get funds from the Goshimmer node that is setup in the `sc1/testnet/goshimmer/config.json` you need to run the following command:
 ```
 $ cli-wallet request-funds
 ```
@@ -173,4 +174,9 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
+## schema-tool setup
 
+## Deploy the smart contract
+```
+wasp-cli chain deploy-contract wasmtime iexp-crowdsale "IEXP Crowdsale SC" crowdsale/crowdsale.wasm
+```
