@@ -8,18 +8,18 @@
 package crowdsale
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
-type ImmutablecrowdsaleState struct {
+type ImmutableCrowdSaleState struct {
 	id int32
 }
 
-func (s ImmutablecrowdsaleState) Owner() wasmlib.ScImmutableAgentID {
+func (s ImmutableCrowdSaleState) Owner() wasmlib.ScImmutableAgentID {
 	return wasmlib.NewScImmutableAgentID(s.id, idxMap[IdxStateOwner])
 }
 
-type MutablecrowdsaleState struct {
+type MutableCrowdSaleState struct {
 	id int32
 }
 
-func (s MutablecrowdsaleState) Owner() wasmlib.ScMutableAgentID {
+func (s MutableCrowdSaleState) Owner() wasmlib.ScMutableAgentID {
 	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxStateOwner])
 }

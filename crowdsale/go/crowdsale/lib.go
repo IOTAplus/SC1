@@ -23,7 +23,7 @@ func OnLoad() {
 
 type InitContext struct {
 	Params ImmutableInitParams
-	State  MutablecrowdsaleState
+	State  MutableCrowdSaleState
 }
 
 func funcInitThunk(ctx wasmlib.ScFuncContext) {
@@ -32,7 +32,7 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 		Params: ImmutableInitParams{
 			id: wasmlib.OBJ_ID_PARAMS,
 		},
-		State: MutablecrowdsaleState{
+		State: MutableCrowdSaleState{
 			id: wasmlib.OBJ_ID_STATE,
 		},
 	}
@@ -42,7 +42,7 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 
 type SetOwnerContext struct {
 	Params ImmutableSetOwnerParams
-	State  MutablecrowdsaleState
+	State  MutableCrowdSaleState
 }
 
 func funcSetOwnerThunk(ctx wasmlib.ScFuncContext) {
@@ -56,7 +56,7 @@ func funcSetOwnerThunk(ctx wasmlib.ScFuncContext) {
 		Params: ImmutableSetOwnerParams{
 			id: wasmlib.OBJ_ID_PARAMS,
 		},
-		State: MutablecrowdsaleState{
+		State: MutableCrowdSaleState{
 			id: wasmlib.OBJ_ID_STATE,
 		},
 	}
@@ -67,7 +67,7 @@ func funcSetOwnerThunk(ctx wasmlib.ScFuncContext) {
 
 type GetOwnerContext struct {
 	Results MutableGetOwnerResults
-	State   ImmutablecrowdsaleState
+	State   ImmutableCrowdSaleState
 }
 
 func viewGetOwnerThunk(ctx wasmlib.ScViewContext) {
@@ -76,7 +76,7 @@ func viewGetOwnerThunk(ctx wasmlib.ScViewContext) {
 		Results: MutableGetOwnerResults{
 			id: wasmlib.OBJ_ID_RESULTS,
 		},
-		State: ImmutablecrowdsaleState{
+		State: ImmutableCrowdSaleState{
 			id: wasmlib.OBJ_ID_STATE,
 		},
 	}

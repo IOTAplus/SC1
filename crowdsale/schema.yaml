@@ -1,5 +1,5 @@
-name: crowdsale
-description: crowdsale description
+name: CrowdSale
+description: CrowdSale description
 structs: {}
 typedefs: {}
 state:

@@ -11,7 +11,7 @@ import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 const (
 	ScName        = "crowdsale"
-	ScDescription = "crowdsale description"
+	ScDescription = "CrowdSale description"
 	HScName       = wasmlib.ScHname(0x0da82426)
 )
 
