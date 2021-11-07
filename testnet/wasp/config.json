@@ -34,7 +34,7 @@
   },
   "peering":{
     "port": 4000,
-    "netid": "0.0.0.0:4000"
+    "netid": "127.0.0.1:4000"
   },
   "nodeconn": {
     "address": "goshimmer.sc.iota.org:5000"
