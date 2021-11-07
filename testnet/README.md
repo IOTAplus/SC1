@@ -111,3 +111,59 @@ $ ps aux | grep wasp | awk '{print $2}' | xargs kill -9
 
 ## Test the Dashboard
 Go to the [dashboard](http://31.220.111.3:7000/) and login with `wasp/wasp`
+
+## wasp-cli setup
+```
+$ cd
+$ mkdir wasp-cli
+$ wasp-cli init
+```
+
+This will create a `wasp-cli.json` file in `~/wasp-cli/` that will only have the `wallet.seed` property in it. So you will need to add the `goshimmer` and `wasp` properties:
+```
+{
+  "wallet": {
+    "seed": "<my-seed>"
+  },
+  "goshimmer": {
+    "api": "https://api.goshimmer.sc.iota.org"
+  },
+  "wasp": {
+    "0": {
+      "api": "127.0.0.1:9090",
+      "nanomsg": "127.0.0.1:5550",
+      "peering": "127.0.0.1:4000"
+    }
+  }
+}
+```
+
+## Setting up a Chain
+
+### Trust setup
+Here you can find the [docs](https://wiki.iota.org/wasp/guide/chains_and_nodes/setting-up-a-chain#trust-setup) to make the nodes trust to each other. Thi is tha case for more than one node operator. But we've seen that even with only a single node it's mandatory to also trust itself.
+
+```
+$ wasp-cli peering info
+PubKey: JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge
+NetID:  0.0.0.0:4000
+$ wasp-cli peering trust JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge 0.0.0.0:4000
+$ wasp-cli peering list-trusted
+------                                        -----
+PubKey                                        NetID
+------                                        -----
+JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge  0.0.0.0:4000
+```
+
+### Requesting test funds
+```
+$ wasp-cli request-funds
+Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
+```
+
+### Deploy a chain
+```
+$ wasp-cli chain deploy --committee=0 --quorum=1 --chain=iexp-crowdsale --description="IEXP Crowdsale"
+```
+
+

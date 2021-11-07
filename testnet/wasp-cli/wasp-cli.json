@@ -1,0 +1,12 @@
+{
+  "goshimmer": {
+    "api": "https://api.goshimmer.sc.iota.org"
+  },
+  "wasp": {
+    "0": {
+      "api": "127.0.0.1:9090",
+      "nanomsg": "127.0.0.1:5550",
+      "peering": "127.0.0.1:4000"
+    }
+  }
+}
