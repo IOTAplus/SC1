@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/iotaledger/wasp/tools/schema/crowdsale"
+	"github.com/iotaplus/SC1/crowdsale/go/crowdsale"
 	"github.com/iotaledger/wasp/packages/vm/wasmsolo"
 	"github.com/stretchr/testify/require"
 )

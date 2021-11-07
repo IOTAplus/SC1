@@ -1,18 +1,9 @@
-name: CrowdSale
-description: CrowdSale IEXP tokens
-structs:
-  PurchaseIEXP:
-    amount: Int64 // amount purchased
-    purchaser: AgentID // who purchased
-    error: String // error to be reported to purchaser if anything goes wrong
-    feedback: String // the feedback for the person who purchase
-    timestamp: Int64 // when the purchase took place
+name: crowdsale
+description: crowdsale description
+structs: {}
 typedefs: {}
 state:
   owner: AgentID // current owner of this smart contract
-  log: PurchaseIEXP[]
-  maxPurchase: Int64
-  totalPurchase: Int64
 funcs:
   init:
     params:
@@ -21,28 +12,7 @@ funcs:
     access: owner // current owner of this smart contract
     params:
       owner: AgentID // new owner of this smart contract
-  purchase:
-    params:
-      feedback: String? // feedback for the person who purchase 
-  withdraw:
-    access: creator // only SC creator can withdraw funds
-    params:
-      amount: Int64? // amount to withdraw
 views:
   getOwner:
     results:
       owner: AgentID // current owner of this smart contract
-  purchaseView:
-    params:
-      nr: Int64
-    results:
-      amount: Int64 // amount purchased
-      purchaser: AgentID // who purchased
-      error: String // error to be reported to purchaser if anything goes wrong
-      feedback: String // the feedback for the purchaser to
-      timestamp: Int64 // when the purchase took place
-  purchaseInfo:
-    results:
-      count: Int64
-      maxPurchase: Int64
-      totalPurchase: Int64
