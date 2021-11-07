@@ -92,7 +92,6 @@ Take into account the docs [here](https://wiki.iota.org/wasp/guide/chains_and_no
 
 ```
 $ cd wasp
-$ git checkout develop
 $ make install
 ```
 

@@ -8,6 +8,7 @@
     "disableStacktrace": true,
     "encoding": "console",
     "outputPaths": [
+      "stdout",
       "wasp.log"
     ],
     "disableEvents": true
