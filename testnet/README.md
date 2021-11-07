@@ -101,7 +101,7 @@ $ cd
 $ mkdir wasp-node
 $ cp sc1/testnet/wasp/config.json wasp-node/
 $ cd wasp-node
-$ wasp &
+$ nohup wasp > /dev/null 2>&1 &
 ```
 ## How to stop the wasp node
 ```
@@ -115,6 +115,7 @@ Go to the [dashboard](http://31.220.111.3:7000/) and login with `wasp/wasp`
 ```
 $ cd
 $ mkdir wasp-cli
+$ cd wasp-cli
 $ wasp-cli init
 ```
 
@@ -164,7 +165,7 @@ Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
 ```
 $ wasp-cli chain deploy \
   --committee=0 \
-  --quorum=0 \
+  --quorum=1 \
   --chain=iexp-crowdsale \
   --description="IEXP Crowdsale" \
   --config wasp-cli/wasp-cli.json
