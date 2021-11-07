@@ -1,8 +1,14 @@
 # Requirements
 * [golang](https://golang.org/doc/install)
-* [rust](https://www.rust-lang.org/en-US/install.html)
 * [wasmtime](https://wasmtime.dev)
-* [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
+* [tinygo](https://tinygo.org/getting-started/install/linux/#ubuntu-debian)
+* ~[rust](https://www.rust-lang.org/en-US/install.html)
+* ~[wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
+
+```
+$ go get github.com/iotaledger/wasp/packages/vm/wasmclient
+$ go get github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib
+```
 
 ## Install dependencies
 Install rockdb dependency as follows:
@@ -174,9 +180,30 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
-## schema-tool setup
+### Deposit funds to the Chain (10,000 IOTAs)
+```
+$ wasp-cli chain deposit \
+  IOTA:10000 \
+  --config wasp-cli/wasp-cli.json
+Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
+  - #0 (check result with: wasp-cli chain request 5hrXdCvzJXzmy9DQR3f1gDPrrAd5Auw7tYhPRabN6pB6kQw)
+Waiting for tx requests to be processed...
+```
 
+## schema-tool setup
+```
+$ cd sc1
+$ schema -init crowdsale
+$ cd crowdsale
+$ go mod init github.com/iotaplus/SC1/crowdsale
+$ schema -go
+$ tinygo build -o crowdsale.wasm -target wasm go/main.go
+```
 ## Deploy the smart contract
 ```
-wasp-cli chain deploy-contract wasmtime iexp-crowdsale "IEXP Crowdsale SC" crowdsale/crowdsale.wasm
+$ wasp-cli chain deploy-contract \
+  wasmtime iexp-crowdsale "IEXP Crowdsale SC" \
+  sc1/crowdsale/crowdsale.wasm \
+  --config wasp-cli/wasp-cli.json
+uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
 ```
