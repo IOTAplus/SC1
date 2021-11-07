@@ -147,23 +147,30 @@ Here you can find the [docs](https://wiki.iota.org/wasp/guide/chains_and_nodes/s
 $ wasp-cli peering info
 PubKey: JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge
 NetID:  0.0.0.0:4000
-$ wasp-cli peering trust JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge 0.0.0.0:4000
+$ wasp-cli peering trust JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge 127.0.0.1:4000
 $ wasp-cli peering list-trusted
 ------                                        -----
 PubKey                                        NetID
 ------                                        -----
-JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge  0.0.0.0:4000
+JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge  127.0.0.1:4000
 ```
 
 ### Requesting test funds
 ```
-$ wasp-cli request-funds
+$ wasp-cli request-funds --config wasp-cli/wasp-cli.json
 Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
 ```
 
 ### Deploy a chain
 ```
-$ wasp-cli chain deploy --committee=0 --quorum=1 --chain=iexp-crowdsale --description="IEXP Crowdsale"
+$ wasp-cli chain deploy \
+  --committee=0 \
+  --quorum=0 \
+  --chain=iexp-crowdsale \
+  --description="IEXP Crowdsale" \
+  --config wasp-cli/wasp-cli.json
+...
+chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
 
