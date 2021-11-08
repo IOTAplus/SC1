@@ -193,7 +193,7 @@ Waiting for tx requests to be processed...
 ## schema-tool setup
 ```
 $ cd sc1
-$ schema -init crowdsale
+$ schema -init CrowdSale
 $ cd crowdsale
 $ go mod init github.com/iotaplus/SC1/crowdsale
 $ schema -go
