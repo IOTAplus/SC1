@@ -1,3 +1,4 @@
+# goshimmer node setup
 version: '3.3'
 
 networks:

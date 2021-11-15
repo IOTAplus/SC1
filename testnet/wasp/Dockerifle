@@ -1,3 +1,4 @@
+# wasp node setup
 ARG GOLANG_IMAGE_TAG=1.17-buster
 
 # Build stage
