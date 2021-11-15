@@ -2,13 +2,6 @@
 * [golang](https://golang.org/doc/install)
 * [wasmtime](https://wasmtime.dev)
 * [tinygo](https://tinygo.org/getting-started/install/linux/#ubuntu-debian)
-* ~[rust](https://www.rust-lang.org/en-US/install.html)
-* ~[wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
-
-```
-$ go get github.com/iotaledger/wasp/packages/vm/wasmclient
-$ go get github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib
-```
 
 ## Install dependencies
 Install rockdb dependency as follows:
@@ -173,8 +166,8 @@ Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
 $ wasp-cli chain deploy \
   --committee=0 \
   --quorum=1 \
-  --chain=iexp-crowdsale \
-  --description="IEXP Crowdsale" \
+  --chain=iexp \
+  --description="IEXP SC" \
   --config wasp-cli/wasp-cli.json
 ...
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
@@ -185,7 +178,7 @@ chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ3
 $ wasp-cli chain deposit \
   IOTA:10000 \
   --config wasp-cli/wasp-cli.json \
-  --chain iexp-crowdsale
+  --chain iexp
 Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
   - #0 (check result with: wasp-cli chain request 5hrXdCvzJXzmy9DQR3f1gDPrrAd5Auw7tYhPRabN6pB6kQw)
 Waiting for tx requests to be processed...
@@ -194,17 +187,19 @@ Waiting for tx requests to be processed...
 ## schema-tool setup
 ```
 $ cd sc1
-$ schema -init CrowdSale
-$ cd crowdsale
-$ go mod init github.com/iotaplus/SC1/crowdsale
+$ schema -init ERC20
+$ cd erc20
+$ go mod init github.com/iotaplus/SC1/erc20
+$ go get github.com/iotaledger/wasp/packages/vm/wasmclient
+$ go get github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib
 $ schema -go
-$ tinygo build -o crowdsale.wasm -target wasm go/main.go
+$ tinygo build -o erc20.wasm -target wasm go/main.go
 ```
 ## Deploy the smart contract
 ```
 $ wasp-cli chain deploy-contract \
-  wasmtime iexp-crowdsale "IEXP Crowdsale SC" \
-  sc1/crowdsale/crowdsale.wasm \
+  wasmtime iexp "ERC20 IEXP SC" \
+  sc1/erc20/erc20.wasm \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
 ```
