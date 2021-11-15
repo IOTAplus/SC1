@@ -246,6 +246,7 @@ evm-chain contract successfully deployed.
 ## Running the JSON-RPC Interface Server
 ```
 $ nohup wasp-cli chain evm jsonrpc \
+  --name evm-chain \
   --chainid 1074 \
   --config wasp-cli/wasp-cli.json > /dev/null 2>&1 &
 ```
