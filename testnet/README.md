@@ -209,6 +209,8 @@ $ wasp-cli chain deploy-contract \
   sc1/erc20/erc20.wasm \
   string o agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
   string s int 10000000000 \
+  string n string "IOTA Experience Point Token" \
+  string sy string "IEXP" \
   --chain=iota-plus \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
