@@ -34,9 +34,6 @@ func viewAllowance(ctx wasmlib.ScViewContext, f *AllowanceContext) {
 func viewBalanceOf(ctx wasmlib.ScViewContext, f *BalanceOfContext) {
 }
 
-func viewDecimals(ctx wasmlib.ScViewContext, f *DecimalsContext) {
-}
-
 func viewName(ctx wasmlib.ScViewContext, f *NameContext) {
 	f.Results.Name().SetValue(f.State.Name().Value())
 }
