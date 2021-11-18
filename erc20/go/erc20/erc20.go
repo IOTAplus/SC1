@@ -9,11 +9,13 @@ func funcApprove(ctx wasmlib.ScFuncContext, f *ApproveContext) {
 }
 
 func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
-    if f.Params.Owner().Exists() {
-        f.State.Owner().SetValue(f.Params.Owner().Value())
-        return
-    }
-    f.State.Owner().SetValue(ctx.ContractCreator())
+	if f.Params.Owner().Exists() {
+		f.State.Owner().SetValue(f.Params.Owner().Value())
+		return
+	}
+	f.State.Owner().SetValue(ctx.ContractCreator())
+
+	f.State.Supply().SetValue(f.Params.Supply().Value())
 }
 
 func funcMint(ctx wasmlib.ScFuncContext, f *MintContext) {

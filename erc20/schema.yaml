@@ -20,6 +20,8 @@ funcs:
     params:
       owner=o: AgentID // creator/owner of the initial supply
       supply=s: Int64 // initial token supply
+      name=n: String
+      symbol=sy: String
   transfer:
     params:
       account=ac: AgentID // target account
