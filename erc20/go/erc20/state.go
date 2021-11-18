@@ -31,10 +31,6 @@ func (s ImmutableERC20State) Balances() MapAgentIDToImmutableInt64 {
 	return MapAgentIDToImmutableInt64{objID: mapID}
 }
 
-func (s ImmutableERC20State) Decimals() wasmlib.ScImmutableInt16 {
-	return wasmlib.NewScImmutableInt16(s.id, idxMap[IdxStateDecimals])
-}
-
 func (s ImmutableERC20State) Name() wasmlib.ScImmutableString {
 	return wasmlib.NewScImmutableString(s.id, idxMap[IdxStateName])
 }
@@ -76,10 +72,6 @@ func (s MutableERC20State) Allowances() MapAgentIDToMutableAllowancesForAgent {
 func (s MutableERC20State) Balances() MapAgentIDToMutableInt64 {
 	mapID := wasmlib.GetObjectID(s.id, idxMap[IdxStateBalances], wasmlib.TYPE_MAP)
 	return MapAgentIDToMutableInt64{objID: mapID}
-}
-
-func (s MutableERC20State) Decimals() wasmlib.ScMutableInt16 {
-	return wasmlib.NewScMutableInt16(s.id, idxMap[IdxStateDecimals])
 }
 
 func (s MutableERC20State) Name() wasmlib.ScMutableString {

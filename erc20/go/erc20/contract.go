@@ -46,11 +46,6 @@ type BalanceOfCall struct {
 	Results ImmutableBalanceOfResults
 }
 
-type DecimalsCall struct {
-	Func    *wasmlib.ScView
-	Results ImmutableDecimalsResults
-}
-
 type NameCall struct {
 	Func    *wasmlib.ScView
 	Results ImmutableNameResults
@@ -109,12 +104,6 @@ func (sc Funcs) Allowance(ctx wasmlib.ScViewCallContext) *AllowanceCall {
 func (sc Funcs) BalanceOf(ctx wasmlib.ScViewCallContext) *BalanceOfCall {
 	f := &BalanceOfCall{Func: wasmlib.NewScView(ctx, HScName, HViewBalanceOf)}
 	f.Func.SetPtrs(&f.Params.id, &f.Results.id)
-	return f
-}
-
-func (sc Funcs) Decimals(ctx wasmlib.ScViewCallContext) *DecimalsCall {
-	f := &DecimalsCall{Func: wasmlib.NewScView(ctx, HScName, HViewDecimals)}
-	f.Func.SetPtrs(nil, &f.Results.id)
 	return f
 }
 

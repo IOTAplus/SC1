@@ -28,17 +28,15 @@ const (
 )
 
 const (
-	ResultAmount   = wasmlib.Key("amount")
-	ResultDecimals = wasmlib.Key("decimals")
-	ResultName     = wasmlib.Key("name")
-	ResultSupply   = wasmlib.Key("s")
-	ResultSymbol   = wasmlib.Key("symbol")
+	ResultAmount = wasmlib.Key("amount")
+	ResultName   = wasmlib.Key("name")
+	ResultSupply = wasmlib.Key("s")
+	ResultSymbol = wasmlib.Key("symbol")
 )
 
 const (
 	StateAllowances = wasmlib.Key("a")
 	StateBalances   = wasmlib.Key("b")
-	StateDecimals   = wasmlib.Key("decimals")
 	StateName       = wasmlib.Key("name")
 	StateOwner      = wasmlib.Key("owner")
 	StateSupply     = wasmlib.Key("s")
@@ -53,7 +51,6 @@ const (
 	FuncTransferFrom = "transferFrom"
 	ViewAllowance    = "allowance"
 	ViewBalanceOf    = "balanceOf"
-	ViewDecimals     = "decimals"
 	ViewName         = "name"
 	ViewSymbol       = "symbol"
 	ViewTotalSupply  = "totalSupply"
@@ -67,7 +64,6 @@ const (
 	HFuncTransferFrom = wasmlib.ScHname(0xd5e0a602)
 	HViewAllowance    = wasmlib.ScHname(0x5e16006a)
 	HViewBalanceOf    = wasmlib.ScHname(0x67ef8df4)
-	HViewDecimals     = wasmlib.ScHname(0x879dc081)
 	HViewName         = wasmlib.ScHname(0x0df7da3a)
 	HViewSymbol       = wasmlib.ScHname(0x3e93d19b)
 	HViewTotalSupply  = wasmlib.ScHname(0x9505e6ca)

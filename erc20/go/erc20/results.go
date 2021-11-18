@@ -40,22 +40,6 @@ func (s MutableBalanceOfResults) Amount() wasmlib.ScMutableInt64 {
 	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultAmount])
 }
 
-type ImmutableDecimalsResults struct {
-	id int32
-}
-
-func (s ImmutableDecimalsResults) Decimals() wasmlib.ScImmutableInt16 {
-	return wasmlib.NewScImmutableInt16(s.id, idxMap[IdxResultDecimals])
-}
-
-type MutableDecimalsResults struct {
-	id int32
-}
-
-func (s MutableDecimalsResults) Decimals() wasmlib.ScMutableInt16 {
-	return wasmlib.NewScMutableInt16(s.id, idxMap[IdxResultDecimals])
-}
-
 type ImmutableNameResults struct {
 	id int32
 }

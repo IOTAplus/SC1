@@ -19,7 +19,6 @@ func OnLoad() {
 	exports.AddFunc(FuncTransferFrom, funcTransferFromThunk)
 	exports.AddView(ViewAllowance, viewAllowanceThunk)
 	exports.AddView(ViewBalanceOf, viewBalanceOfThunk)
-	exports.AddView(ViewDecimals, viewDecimalsThunk)
 	exports.AddView(ViewName, viewNameThunk)
 	exports.AddView(ViewSymbol, viewSymbolThunk)
 	exports.AddView(ViewTotalSupply, viewTotalSupplyThunk)
@@ -188,25 +187,6 @@ func viewBalanceOfThunk(ctx wasmlib.ScViewContext) {
 	ctx.Require(f.Params.Account().Exists(), "missing mandatory account")
 	viewBalanceOf(ctx, f)
 	ctx.Log("erc20.viewBalanceOf ok")
-}
-
-type DecimalsContext struct {
-	Results MutableDecimalsResults
-	State   ImmutableERC20State
-}
-
-func viewDecimalsThunk(ctx wasmlib.ScViewContext) {
-	ctx.Log("erc20.viewDecimals")
-	f := &DecimalsContext{
-		Results: MutableDecimalsResults{
-			id: wasmlib.OBJ_ID_RESULTS,
-		},
-		State: ImmutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	viewDecimals(ctx, f)
-	ctx.Log("erc20.viewDecimals ok")
 }
 
 type NameContext struct {
