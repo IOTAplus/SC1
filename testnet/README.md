@@ -146,7 +146,7 @@ Here you can find the [docs](https://wiki.iota.org/wasp/guide/chains_and_nodes/s
 ```
 $ wasp-cli peering info
 PubKey: JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge
-NetID:  0.0.0.0:4000
+NetID:  127.0.0.1:4000
 $ wasp-cli peering trust JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge 127.0.0.1:4000
 $ wasp-cli peering list-trusted
 ------                                        -----
@@ -159,6 +159,13 @@ JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge  127.0.0.1:4000
 ```
 $ wasp-cli request-funds --config wasp-cli/wasp-cli.json
 Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
+$ wasp-cli balance --config wasp-cli/wasp-cli.json 
+Address index 0
+  Address: 1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ
+  Balance:
+    IOTA: 1000000
+    ------
+    Total: 1000000
 ```
 
 ### Deploy a chain
@@ -166,8 +173,8 @@ Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
 $ wasp-cli chain deploy \
   --committee=0 \
   --quorum=1 \
-  --chain=iexp \
-  --description="IEXP SC" \
+  --chain=iota-plus \
+  --description="IOTA Plus Chain" \
   --config wasp-cli/wasp-cli.json
 ...
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
@@ -177,8 +184,8 @@ chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ3
 ```
 $ wasp-cli chain deposit \
   IOTA:10000 \
-  --config wasp-cli/wasp-cli.json \
-  --chain iexp
+  --chain iota-plus \
+  --config wasp-cli/wasp-cli.json
 Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
   - #0 (check result with: wasp-cli chain request 5hrXdCvzJXzmy9DQR3f1gDPrrAd5Auw7tYhPRabN6pB6kQw)
 Waiting for tx requests to be processed...
@@ -198,13 +205,17 @@ $ tinygo build -o erc20.wasm -target wasm go/main.go
 ## Deploy the smart contract
 ```
 $ wasp-cli chain deploy-contract \
-  wasmtime iexp "ERC20 IEXP SC" \
+  wasmtime erc20 "ERC20 IEXP SC" \
   sc1/erc20/erc20.wasm \
+  string o agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
+  string s int 10000000000 \
+  --chain=iota-plus \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
 ```
 
-## Setting up an EVM Chain
+## EVM setup
+### Setting up an EVM Chain
 First of all you will need to deploy an [ISCP Chain](#deploy-a-chain) so the chain that we choose to create this time will be as follows:
 
 ```
@@ -218,7 +229,7 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/rF8hHRa1fELwTZu6nvt38nrsgRQgVxqkTMnDiYGVET2F, State address: L7wRpVhingmFbwQ64LLEc4bVnpkCxs8Cj6EWBswpHNQn, N = 1, T = 1
 ```
 
-## Deposit funds to the new ISCP Chain (10,000 IOTAs by default)
+### Deposit funds to the new ISCP Chain (10,000 IOTAs by default)
 ```
 $ wasp-cli chain deposit \
   IOTA:10000 \
@@ -226,7 +237,7 @@ $ wasp-cli chain deposit \
   --chain iscp-chain
 ```
 
-## Deploy the EVM Chain
+### Deploy the EVM Chain
 ```
 $ wasp-cli chain evm deploy \
   --name evm-chain \
@@ -238,7 +249,7 @@ Posted off-ledger request (check result with: wasp-cli chain request 3saZUJ33ATR
 evm-chain contract successfully deployed.
 ```
 
-## Running the JSON-RPC Interface Server
+### Running the JSON-RPC Interface Server
 ```
 $ nohup wasp-cli chain evm jsonrpc \
   --name evm-chain \
@@ -246,7 +257,7 @@ $ nohup wasp-cli chain evm jsonrpc \
   --config wasp-cli/wasp-cli.json > /dev/null 2>&1 &
 ```
 
-## How to stop the JSON-RPC Interface Server
+### How to stop the JSON-RPC Interface Server
 ```
 $ ps aux | grep wasp-cli | awk '{print $2}' | xargs kill -9
 ```
