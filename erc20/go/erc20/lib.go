@@ -65,8 +65,10 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 			id: wasmlib.OBJ_ID_STATE,
 		},
 	}
+	ctx.Require(f.Params.Name().Exists(), "missing mandatory name")
 	ctx.Require(f.Params.Owner().Exists(), "missing mandatory owner")
 	ctx.Require(f.Params.Supply().Exists(), "missing mandatory supply")
+	ctx.Require(f.Params.Symbol().Exists(), "missing mandatory symbol")
 	funcInit(ctx, f)
 	ctx.Log("erc20.funcInit ok")
 }

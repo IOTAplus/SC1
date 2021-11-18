@@ -19,9 +19,11 @@ const (
 	ParamAccount    = wasmlib.Key("ac")
 	ParamAmount     = wasmlib.Key("amount")
 	ParamDelegation = wasmlib.Key("d")
+	ParamName       = wasmlib.Key("n")
 	ParamOwner      = wasmlib.Key("o")
 	ParamRecipient  = wasmlib.Key("r")
 	ParamSupply     = wasmlib.Key("s")
+	ParamSymbol     = wasmlib.Key("sy")
 	ParamTo         = wasmlib.Key("to")
 )
 
