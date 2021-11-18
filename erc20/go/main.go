@@ -11,7 +11,7 @@ package main
 
 import "github.com/iotaledger/wasp/packages/vm/wasmclient"
 
-import "github.com/iotaplus/SC1/contracts/erc20/go/erc20"
+import "github.com/iotaplus/SC1/erc20/go/erc20"
 
 func main() {
 }

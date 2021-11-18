@@ -1,4 +1,4 @@
-module github.com/iotaplus/SC1/contracts/erc20
+module github.com/iotaplus/SC1/erc20
 
 go 1.17
 

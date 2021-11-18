@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/iotaplus/SC1/contracts/erc20/go/erc20"
+	"github.com/iotaplus/SC1/erc20/go/erc20"
 	"github.com/iotaledger/wasp/packages/vm/wasmsolo"
 	"github.com/stretchr/testify/require"
 )
