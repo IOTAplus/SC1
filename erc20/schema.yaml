@@ -9,7 +9,6 @@ state:
   supply=s: Int64 // total supply of the token
   name: String // name of the token
   symbol: String // a shorter version of the name
-  decimals: Int16 // the number of decimals used to get its user representation
   owner: AgentID // owner of the sc
 funcs:
   approve:
@@ -57,6 +56,3 @@ views:
   symbol:
     results:
       symbol: String
-  decimals:
-    results:
-      decimals: Int16
