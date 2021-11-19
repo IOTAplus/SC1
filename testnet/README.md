@@ -1,3 +1,33 @@
+<!-- toc -->
+- [Requirements](#requirements)
+- [Public Goshimmer](#public-goshimmer)
+  - [Creating IEXP tokens CLI Wallet](#creating-iexp-tokens-cli-wallet)
+    - [CLI Wallet setup](#cli-wallet-setup)
+    - [Initialize the wallet](#initialize-the-wallet)
+    - [Request funds](#request-funds)
+    - [Balance of the wallet](#balance-of-the-wallet)
+    - [Create 1000 IEXP assets](#create-1000-iexp-assets)
+    - [Get relevant information about the wallet](#get-relevant-information-about-the-wallet)
+- [Private Wasp](#private-wasp)
+  - [Wasp setup](#wasp-setup)
+  - [Running the wasp node](#running-the-wasp-node)
+  - [How to stop the wasp node](#how-to-stop-the-wasp-node)
+  - [Test the Dashboard](#test-the-dashboard)
+  - [Wasp CLI setup](#wasp-cli-setup)
+  - [Setting up an ISCP Chain](#setting-up-an-iscp-chain)
+    - [Trust setup](#trust-setup)
+    - [Requesting test funds](#requesting-test-funds)
+    - [Deploy a chain](#deploy-a-chain)
+    - [Deposit funds to the chain 10000 IOTAs](#deposit-funds-to-the-chain-10000-iotas)
+  - [Schema Tool setup](#schema-tool-setup)
+  - [Deploy the smart contract](#deploy-the-smart-contract)
+  - [EVM setup](#evm-setup)
+    - [Setting up an EVM Chain](#setting-up-an-evm-chain)
+    - [Deposit funds to the new ISCP Chain 10000 IOTAs by default](#deposit-funds-to-the-new-iscp-chain-10000-iotas-by-default)
+    - [Deploy the EVM Chain](#deploy-the-evm-chain)
+    - [Running the JSON RPC Interface Server](#running-the-json-rpc-interface-server)
+    - [How to stop the JSON RPC Interface Server](#how-to-stop-the-json-rpc-interface-server)
+<!-- tocstop -->
 # Requirements
 * [golang](https://golang.org/doc/install)
 * [wasmtime](https://wasmtime.dev)
@@ -25,9 +55,9 @@ $ sudo make install-shared INSTALL_PATH=/usr
 
 # Public Goshimmer
 
-## Creating IEXP tokens (cli-wallet)
+## Creating IEXP tokens CLI Wallet
 
-### cli-wallet setup
+### CLI Wallet setup
 In order to get the latest binary you can go to https://github.com/iotaledger/goshimmer/releases
 and download `cli-wallet-0.8.0_Linux_x86_64.tar.gz` as an example and extract it to `~/bin`
 ```
@@ -87,7 +117,7 @@ Clone the repository with
 $ git clone https://github.com/iotaledger/wasp.git
 ```
 
-## wasp setup
+## Wasp setup
 Take into account the docs [here](https://wiki.iota.org/wasp/guide/chains_and_nodes/running-a-node)
 
 ```
@@ -111,7 +141,7 @@ $ ps aux | grep wasp | awk '{print $2}' | xargs kill -9
 ## Test the Dashboard
 Go to the [dashboard](http://31.220.111.3:7000/) and login with `wasp/wasp`
 
-## wasp-cli setup
+## Wasp CLI setup
 ```
 $ cd
 $ mkdir wasp-cli
@@ -138,7 +168,7 @@ This will create a `wasp-cli.json` file in `~/wasp-cli/` that will only have the
 }
 ```
 
-## Setting up a Chain (ISCP Chain)
+## Setting up an ISCP Chain
 
 ### Trust setup
 Here you can find the [docs](https://wiki.iota.org/wasp/guide/chains_and_nodes/setting-up-a-chain#trust-setup) to make the nodes trust to each other. Thi is tha case for more than one node operator. But we've seen that even with only a single node it's mandatory to also trust itself.
@@ -180,7 +210,7 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
-### Deposit funds to the Chain (10,000 IOTAs)
+### Deposit funds to the chain 10000 IOTAs
 ```
 $ wasp-cli chain deposit \
   IOTA:10000 \
@@ -191,7 +221,7 @@ Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX contai
 Waiting for tx requests to be processed...
 ```
 
-## schema-tool setup
+## Schema Tool setup
 ```
 $ cd sc1
 $ schema -init ERC20
@@ -231,7 +261,7 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/rF8hHRa1fELwTZu6nvt38nrsgRQgVxqkTMnDiYGVET2F, State address: L7wRpVhingmFbwQ64LLEc4bVnpkCxs8Cj6EWBswpHNQn, N = 1, T = 1
 ```
 
-### Deposit funds to the new ISCP Chain (10,000 IOTAs by default)
+### Deposit funds to the new ISCP Chain 10000 IOTAs by default
 ```
 $ wasp-cli chain deposit \
   IOTA:10000 \
@@ -251,7 +281,7 @@ Posted off-ledger request (check result with: wasp-cli chain request 3saZUJ33ATR
 evm-chain contract successfully deployed.
 ```
 
-### Running the JSON-RPC Interface Server
+### Running the JSON RPC Interface Server
 ```
 $ nohup wasp-cli chain evm jsonrpc \
   --name evm-chain \
@@ -259,7 +289,7 @@ $ nohup wasp-cli chain evm jsonrpc \
   --config wasp-cli/wasp-cli.json > /dev/null 2>&1 &
 ```
 
-### How to stop the JSON-RPC Interface Server
+### How to stop the JSON RPC Interface Server
 ```
 $ ps aux | grep wasp-cli | awk '{print $2}' | xargs kill -9
 ```
