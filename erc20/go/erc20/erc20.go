@@ -11,12 +11,12 @@ func funcApprove(ctx wasmlib.ScFuncContext, f *ApproveContext) {
 func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
 	if f.Params.Owner().Exists() {
 		f.State.Owner().SetValue(f.Params.Owner().Value())
-		return
 	}
 	f.State.Owner().SetValue(ctx.ContractCreator())
-	f.State.Supply().SetValue(f.Params.Supply().Value())
-	f.State.Name().SetValue(f.Params.Name().Value())
-	f.State.Symbol().SetValue(f.Params.Symbol().Value())
+
+	supply := f.Params.Supply().Value()
+	ctx.Require(supply > 0, "ERC20: supply must be greater than 0")
+	f.State.Supply().SetValue(supply)
 }
 
 func funcMint(ctx wasmlib.ScFuncContext, f *MintContext) {
@@ -32,14 +32,6 @@ func viewAllowance(ctx wasmlib.ScViewContext, f *AllowanceContext) {
 }
 
 func viewBalanceOf(ctx wasmlib.ScViewContext, f *BalanceOfContext) {
-}
-
-func viewName(ctx wasmlib.ScViewContext, f *NameContext) {
-	f.Results.Name().SetValue(f.State.Name().Value())
-}
-
-func viewSymbol(ctx wasmlib.ScViewContext, f *SymbolContext) {
-	f.Results.Symbol().SetValue(f.State.Symbol().Value())
 }
 
 func viewTotalSupply(ctx wasmlib.ScViewContext, f *TotalSupplyContext) {

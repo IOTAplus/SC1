@@ -31,20 +31,12 @@ func (s ImmutableERC20State) Balances() MapAgentIDToImmutableInt64 {
 	return MapAgentIDToImmutableInt64{objID: mapID}
 }
 
-func (s ImmutableERC20State) Name() wasmlib.ScImmutableString {
-	return wasmlib.NewScImmutableString(s.id, idxMap[IdxStateName])
-}
-
 func (s ImmutableERC20State) Owner() wasmlib.ScImmutableAgentID {
 	return wasmlib.NewScImmutableAgentID(s.id, idxMap[IdxStateOwner])
 }
 
 func (s ImmutableERC20State) Supply() wasmlib.ScImmutableInt64 {
 	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxStateSupply])
-}
-
-func (s ImmutableERC20State) Symbol() wasmlib.ScImmutableString {
-	return wasmlib.NewScImmutableString(s.id, idxMap[IdxStateSymbol])
 }
 
 type MapAgentIDToMutableAllowancesForAgent struct {
@@ -74,18 +66,10 @@ func (s MutableERC20State) Balances() MapAgentIDToMutableInt64 {
 	return MapAgentIDToMutableInt64{objID: mapID}
 }
 
-func (s MutableERC20State) Name() wasmlib.ScMutableString {
-	return wasmlib.NewScMutableString(s.id, idxMap[IdxStateName])
-}
-
 func (s MutableERC20State) Owner() wasmlib.ScMutableAgentID {
 	return wasmlib.NewScMutableAgentID(s.id, idxMap[IdxStateOwner])
 }
 
 func (s MutableERC20State) Supply() wasmlib.ScMutableInt64 {
 	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxStateSupply])
-}
-
-func (s MutableERC20State) Symbol() wasmlib.ScMutableString {
-	return wasmlib.NewScMutableString(s.id, idxMap[IdxStateSymbol])
 }

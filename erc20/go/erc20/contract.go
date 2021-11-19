@@ -46,16 +46,6 @@ type BalanceOfCall struct {
 	Results ImmutableBalanceOfResults
 }
 
-type NameCall struct {
-	Func    *wasmlib.ScView
-	Results ImmutableNameResults
-}
-
-type SymbolCall struct {
-	Func    *wasmlib.ScView
-	Results ImmutableSymbolResults
-}
-
 type TotalSupplyCall struct {
 	Func    *wasmlib.ScView
 	Results ImmutableTotalSupplyResults
@@ -104,18 +94,6 @@ func (sc Funcs) Allowance(ctx wasmlib.ScViewCallContext) *AllowanceCall {
 func (sc Funcs) BalanceOf(ctx wasmlib.ScViewCallContext) *BalanceOfCall {
 	f := &BalanceOfCall{Func: wasmlib.NewScView(ctx, HScName, HViewBalanceOf)}
 	f.Func.SetPtrs(&f.Params.id, &f.Results.id)
-	return f
-}
-
-func (sc Funcs) Name(ctx wasmlib.ScViewCallContext) *NameCall {
-	f := &NameCall{Func: wasmlib.NewScView(ctx, HScName, HViewName)}
-	f.Func.SetPtrs(nil, &f.Results.id)
-	return f
-}
-
-func (sc Funcs) Symbol(ctx wasmlib.ScViewCallContext) *SymbolCall {
-	f := &SymbolCall{Func: wasmlib.NewScView(ctx, HScName, HViewSymbol)}
-	f.Func.SetPtrs(nil, &f.Results.id)
 	return f
 }
 

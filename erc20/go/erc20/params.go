@@ -36,10 +36,6 @@ type ImmutableInitParams struct {
 	id int32
 }
 
-func (s ImmutableInitParams) Name() wasmlib.ScImmutableString {
-	return wasmlib.NewScImmutableString(s.id, idxMap[IdxParamName])
-}
-
 func (s ImmutableInitParams) Owner() wasmlib.ScImmutableAgentID {
 	return wasmlib.NewScImmutableAgentID(s.id, idxMap[IdxParamOwner])
 }
@@ -48,16 +44,8 @@ func (s ImmutableInitParams) Supply() wasmlib.ScImmutableInt64 {
 	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxParamSupply])
 }
 
-func (s ImmutableInitParams) Symbol() wasmlib.ScImmutableString {
-	return wasmlib.NewScImmutableString(s.id, idxMap[IdxParamSymbol])
-}
-
 type MutableInitParams struct {
 	id int32
-}
-
-func (s MutableInitParams) Name() wasmlib.ScMutableString {
-	return wasmlib.NewScMutableString(s.id, idxMap[IdxParamName])
 }
 
 func (s MutableInitParams) Owner() wasmlib.ScMutableAgentID {
@@ -66,10 +54,6 @@ func (s MutableInitParams) Owner() wasmlib.ScMutableAgentID {
 
 func (s MutableInitParams) Supply() wasmlib.ScMutableInt64 {
 	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxParamSupply])
-}
-
-func (s MutableInitParams) Symbol() wasmlib.ScMutableString {
-	return wasmlib.NewScMutableString(s.id, idxMap[IdxParamSymbol])
 }
 
 type ImmutableMintParams struct {

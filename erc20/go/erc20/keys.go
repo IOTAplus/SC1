@@ -13,46 +13,34 @@ const (
 	IdxParamAccount    = 0
 	IdxParamAmount     = 1
 	IdxParamDelegation = 2
-	IdxParamName       = 3
-	IdxParamOwner      = 4
-	IdxParamRecipient  = 5
-	IdxParamSupply     = 6
-	IdxParamSymbol     = 7
-	IdxParamTo         = 8
-	IdxResultAmount    = 9
-	IdxResultName      = 10
-	IdxResultSupply    = 11
-	IdxResultSymbol    = 12
-	IdxStateAllowances = 13
-	IdxStateBalances   = 14
-	IdxStateName       = 15
-	IdxStateOwner      = 16
-	IdxStateSupply     = 17
-	IdxStateSymbol     = 18
+	IdxParamOwner      = 3
+	IdxParamRecipient  = 4
+	IdxParamSupply     = 5
+	IdxParamTo         = 6
+	IdxResultAmount    = 7
+	IdxResultSupply    = 8
+	IdxStateAllowances = 9
+	IdxStateBalances   = 10
+	IdxStateOwner      = 11
+	IdxStateSupply     = 12
 )
 
-const keyMapLen = 19
+const keyMapLen = 13
 
 var keyMap = [keyMapLen]wasmlib.Key{
 	ParamAccount,
 	ParamAmount,
 	ParamDelegation,
-	ParamName,
 	ParamOwner,
 	ParamRecipient,
 	ParamSupply,
-	ParamSymbol,
 	ParamTo,
 	ResultAmount,
-	ResultName,
 	ResultSupply,
-	ResultSymbol,
 	StateAllowances,
 	StateBalances,
-	StateName,
 	StateOwner,
 	StateSupply,
-	StateSymbol,
 }
 
 var idxMap [keyMapLen]wasmlib.Key32

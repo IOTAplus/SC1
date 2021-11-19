@@ -19,8 +19,6 @@ func OnLoad() {
 	exports.AddFunc(FuncTransferFrom, funcTransferFromThunk)
 	exports.AddView(ViewAllowance, viewAllowanceThunk)
 	exports.AddView(ViewBalanceOf, viewBalanceOfThunk)
-	exports.AddView(ViewName, viewNameThunk)
-	exports.AddView(ViewSymbol, viewSymbolThunk)
 	exports.AddView(ViewTotalSupply, viewTotalSupplyThunk)
 
 	for i, key := range keyMap {
@@ -64,10 +62,8 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 			id: wasmlib.OBJ_ID_STATE,
 		},
 	}
-	ctx.Require(f.Params.Name().Exists(), "missing mandatory name")
 	ctx.Require(f.Params.Owner().Exists(), "missing mandatory owner")
 	ctx.Require(f.Params.Supply().Exists(), "missing mandatory supply")
-	ctx.Require(f.Params.Symbol().Exists(), "missing mandatory symbol")
 	funcInit(ctx, f)
 	ctx.Log("erc20.funcInit ok")
 }
@@ -187,44 +183,6 @@ func viewBalanceOfThunk(ctx wasmlib.ScViewContext) {
 	ctx.Require(f.Params.Account().Exists(), "missing mandatory account")
 	viewBalanceOf(ctx, f)
 	ctx.Log("erc20.viewBalanceOf ok")
-}
-
-type NameContext struct {
-	Results MutableNameResults
-	State   ImmutableERC20State
-}
-
-func viewNameThunk(ctx wasmlib.ScViewContext) {
-	ctx.Log("erc20.viewName")
-	f := &NameContext{
-		Results: MutableNameResults{
-			id: wasmlib.OBJ_ID_RESULTS,
-		},
-		State: ImmutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	viewName(ctx, f)
-	ctx.Log("erc20.viewName ok")
-}
-
-type SymbolContext struct {
-	Results MutableSymbolResults
-	State   ImmutableERC20State
-}
-
-func viewSymbolThunk(ctx wasmlib.ScViewContext) {
-	ctx.Log("erc20.viewSymbol")
-	f := &SymbolContext{
-		Results: MutableSymbolResults{
-			id: wasmlib.OBJ_ID_RESULTS,
-		},
-		State: ImmutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	viewSymbol(ctx, f)
-	ctx.Log("erc20.viewSymbol ok")
 }
 
 type TotalSupplyContext struct {
