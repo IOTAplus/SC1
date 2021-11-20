@@ -9,14 +9,15 @@ func funcApprove(ctx wasmlib.ScFuncContext, f *ApproveContext) {
 }
 
 func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
-	if f.Params.Owner().Exists() {
-		f.State.Owner().SetValue(f.Params.Owner().Value())
-	}
-	f.State.Owner().SetValue(ctx.ContractCreator())
-
 	supply := f.Params.Supply().Value()
 	ctx.Require(supply > 0, "ERC20: supply must be greater than 0")
 	f.State.Supply().SetValue(supply)
+
+	if f.Params.Owner().Exists() {
+		f.State.Owner().SetValue(f.Params.Owner().Value())
+		return
+	}
+	f.State.Owner().SetValue(ctx.ContractCreator())
 }
 
 func funcMint(ctx wasmlib.ScFuncContext, f *MintContext) {
