@@ -17,9 +17,12 @@ func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
 
 	if f.Params.Owner().Exists() {
 		f.State.Owner().SetValue(f.Params.Owner().Value())
-		return
+	} else {
+		f.State.Owner().SetValue(ctx.ContractCreator())
 	}
-	f.State.Owner().SetValue(ctx.ContractCreator())
+
+	owner := f.State.Owner().Value()
+	f.State.Balances().GetInt64(owner).SetValue(supply)
 }
 
 func funcMint(ctx wasmlib.ScFuncContext, f *MintContext) {
