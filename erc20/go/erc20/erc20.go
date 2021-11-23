@@ -4,8 +4,6 @@
 package erc20
 
 import (
-	"fmt"
-
 	"github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 )
 
@@ -43,7 +41,7 @@ func funcTransfer(ctx wasmlib.ScFuncContext, f *TransferContext) {
 	sourceBalance.SetValue(sourceBalance.Value() - amount)
 	targetBalance.SetValue(targetBalance.Value() + amount)
 
-	ctx.Event(fmt.Sprintf("Tranfer %d IEXP tokens to account %d", amount, targetBalance.Value()))
+	// ctx.Event(fmt.Sprintf("Tranfer %d IEXP tokens to account %d", amount, targetBalance.Value()))
 }
 
 func funcTransferFrom(ctx wasmlib.ScFuncContext, f *TransferFromContext) {
