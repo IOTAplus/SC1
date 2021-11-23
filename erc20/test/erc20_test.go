@@ -23,21 +23,20 @@ func buildInit(creator *wasmsolo.SoloAgent) *erc20.InitCall {
 	return init
 }
 
-func setupInit(t *testing.T) (*erc20.InitCall, *wasmsolo.SoloAgent, *wasmsolo.SoloAgent) {
+func setupInit(t *testing.T) (*wasmsolo.SoloContext, *erc20.InitCall, *wasmsolo.SoloAgent, *wasmsolo.SoloAgent) {
 	_, creator, recipient := getChainAndCreator(t)
 	init := buildInit(creator)
-	return init, creator, recipient
+	ctx := wasmsolo.NewSoloContext(t, erc20.ScName, erc20.OnLoad, init.Func)
+	return ctx, init, creator, recipient
 }
 
 func TestDeploy(t *testing.T) {
-	init, _, _ := setupInit(t)
-	ctx := wasmsolo.NewSoloContext(t, erc20.ScName, erc20.OnLoad, init.Func)
+	ctx, _, _, _ := setupInit(t)
 	require.NoError(t, ctx.ContractExists(erc20.ScName))
 }
 
 func TestTotalSupply(t *testing.T) {
-	init, _, _ := setupInit(t)
-	ctx := wasmsolo.NewSoloContext(t, erc20.ScName, erc20.OnLoad, init.Func)
+	ctx, _, _, _ := setupInit(t)
 
 	totalSupply := erc20.ScFuncs.TotalSupply(ctx)
 	totalSupply.Func.Call()
@@ -49,8 +48,7 @@ func TestTotalSupply(t *testing.T) {
 }
 
 func TestBalanceOf(t *testing.T) {
-	init, creator, _ := setupInit(t)
-	ctx := wasmsolo.NewSoloContext(t, erc20.ScName, erc20.OnLoad, init.Func)
+	ctx, _, creator, _ := setupInit(t)
 
 	balanceOf := erc20.ScFuncs.BalanceOf(ctx)
 	balanceOf.Params.Account().SetValue(creator.ScAgentID())
@@ -63,14 +61,13 @@ func TestBalanceOf(t *testing.T) {
 }
 
 func TestTransfer(t *testing.T) {
-	init, creator, recipient := setupInit(t)
-	ctx := wasmsolo.NewSoloContext(t, erc20.ScName, erc20.OnLoad, init.Func)
+	ctx, _, creator, recipient := setupInit(t)
 
-	amountToTransfer := int64(100)
+	amountToTransfer := uint64(100)
 
 	transfer := erc20.ScFuncs.Transfer(ctx)
 	transfer.Params.Account().SetValue(recipient.ScAgentID())
-	transfer.Params.Amount().SetValue(amountToTransfer)
+	transfer.Params.Amount().SetValue(int64(amountToTransfer))
 	transfer.Func.Call()
 	require.NoError(t, ctx.Err)
 
@@ -81,7 +78,7 @@ func TestTransfer(t *testing.T) {
 
 	balanceOfCreator := balanceOf.Results.Amount()
 	require.True(t, balanceOfCreator.Exists())
-	require.EqualValues(t, initialSupply-amountToTransfer, balanceOfCreator.Value())
+	require.EqualValues(t, int64(initialSupply)-int64(amountToTransfer), balanceOfCreator.Value())
 
 	// check if recipient got the amount
 	balanceOf.Params.Account().SetValue(recipient.ScAgentID())
@@ -90,5 +87,5 @@ func TestTransfer(t *testing.T) {
 
 	balanceOfRecipient := balanceOf.Results.Amount()
 	require.True(t, balanceOfRecipient.Exists())
-	require.EqualValues(t, amountToTransfer, balanceOfRecipient.Value())
+	require.EqualValues(t, int64(amountToTransfer), balanceOfRecipient.Value())
 }
