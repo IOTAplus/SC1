@@ -26,6 +26,16 @@ func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
 }
 
 func funcMint(ctx wasmlib.ScFuncContext, f *MintContext) {
+	amount := f.Params.Amount().Value()
+	ctx.Require(amount > 0, "erc20.mint.fail: wrong 'amount' parameter")
+
+	recipient := f.Params.To().Value()
+
+	balances := f.State.Balances()
+	recipientBalance := balances.GetInt64(recipient)
+
+	recipientBalance.SetValue(recipientBalance.Value() + amount)
+	f.State.Supply().SetValue(f.State.Supply().Value() + amount)
 }
 
 func funcTransfer(ctx wasmlib.ScFuncContext, f *TransferContext) {
