@@ -141,3 +141,34 @@ func TestTransferNotEnoughFunds(t *testing.T) {
 	transfer.Func.TransferIotas(1).Post()
 	require.Error(t, ctx.Err)
 }
+
+func TestMint(t *testing.T) {
+	ctx, _, creator := setupInit(t)
+	recipient1 := ctx.NewSoloAgent()
+
+	amountToMint := uint64(100)
+
+	mint := erc20.ScFuncs.Mint(ctx.Sign(creator))
+	mint.Params.To().SetValue(recipient1.ScAgentID())
+	mint.Params.Amount().SetValue(int64(amountToMint))
+	mint.Func.Post()
+	mint.Func.TransferIotas(1).Post()
+	require.NoError(t, ctx.Err)
+
+	totalSupply := erc20.ScFuncs.TotalSupply(ctx)
+	totalSupply.Func.Call()
+	require.NoError(t, ctx.Err)
+
+	supply := totalSupply.Results.Supply()
+	require.True(t, supply.Exists())
+	require.EqualValues(t, initialSupply+amountToMint, supply.Value())
+
+	balanceOf := erc20.ScFuncs.BalanceOf(ctx)
+	balanceOf.Params.Account().SetValue(recipient1.ScAgentID())
+	balanceOf.Func.Call()
+	require.NoError(t, ctx.Err)
+
+	balance := balanceOf.Results.Amount()
+	require.True(t, balance.Exists())
+	require.EqualValues(t, int64(amountToMint), balance.Value())
+}
