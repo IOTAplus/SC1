@@ -16,22 +16,22 @@ const (
 )
 
 const (
-	ParamAccount = wasmlib.Key("ac")
-	ParamAmount  = wasmlib.Key("amount")
-	ParamOwner   = wasmlib.Key("o")
-	ParamSupply  = wasmlib.Key("s")
-	ParamTo      = wasmlib.Key("to")
+	ParamAccount = "ac"
+	ParamAmount  = "amount"
+	ParamOwner   = "o"
+	ParamSupply  = "s"
+	ParamTo      = "to"
 )
 
 const (
-	ResultAmount = wasmlib.Key("amount")
-	ResultSupply = wasmlib.Key("s")
+	ResultAmount = "amount"
+	ResultSupply = "s"
 )
 
 const (
-	StateBalances = wasmlib.Key("b")
-	StateOwner    = wasmlib.Key("owner")
-	StateSupply   = wasmlib.Key("s")
+	StateBalances = "b"
+	StateOwner    = "owner"
+	StateSupply   = "s"
 )
 
 const (

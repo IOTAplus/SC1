@@ -6,6 +6,7 @@
 // Change the json schema instead
 
 package erc20
+
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 type ImmutableBalanceOfResults struct {

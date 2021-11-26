@@ -10,18 +10,18 @@ package erc20
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 type InitCall struct {
-	Func   *wasmlib.ScInitFunc
-	Params MutableInitParams
+	Func    *wasmlib.ScInitFunc
+	Params  MutableInitParams
 }
 
 type MintCall struct {
-	Func   *wasmlib.ScFunc
-	Params MutableMintParams
+	Func    *wasmlib.ScFunc
+	Params  MutableMintParams
 }
 
 type TransferCall struct {
-	Func   *wasmlib.ScFunc
-	Params MutableTransferParams
+	Func    *wasmlib.ScFunc
+	Params  MutableTransferParams
 }
 
 type BalanceOfCall struct {

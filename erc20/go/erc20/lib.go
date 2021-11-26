@@ -12,10 +12,10 @@ import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 func OnLoad() {
 	exports := wasmlib.NewScExports()
-	exports.AddFunc(FuncInit, funcInitThunk)
-	exports.AddFunc(FuncMint, funcMintThunk)
-	exports.AddFunc(FuncTransfer, funcTransferThunk)
-	exports.AddView(ViewBalanceOf, viewBalanceOfThunk)
+	exports.AddFunc(FuncInit,        funcInitThunk)
+	exports.AddFunc(FuncMint,        funcMintThunk)
+	exports.AddFunc(FuncTransfer,    funcTransferThunk)
+	exports.AddView(ViewBalanceOf,   viewBalanceOfThunk)
 	exports.AddView(ViewTotalSupply, viewTotalSupplyThunk)
 
 	for i, key := range keyMap {
@@ -24,8 +24,8 @@ func OnLoad() {
 }
 
 type InitContext struct {
-	Params ImmutableInitParams
-	State  MutableERC20State
+	Params  ImmutableInitParams
+	State   MutableERC20State
 }
 
 func funcInitThunk(ctx wasmlib.ScFuncContext) {
@@ -45,8 +45,8 @@ func funcInitThunk(ctx wasmlib.ScFuncContext) {
 }
 
 type MintContext struct {
-	Params ImmutableMintParams
-	State  MutableERC20State
+	Params  ImmutableMintParams
+	State   MutableERC20State
 }
 
 func funcMintThunk(ctx wasmlib.ScFuncContext) {
@@ -70,8 +70,8 @@ func funcMintThunk(ctx wasmlib.ScFuncContext) {
 }
 
 type TransferContext struct {
-	Params ImmutableTransferParams
-	State  MutableERC20State
+	Params  ImmutableTransferParams
+	State   MutableERC20State
 }
 
 func funcTransferThunk(ctx wasmlib.ScFuncContext) {

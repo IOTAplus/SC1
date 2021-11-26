@@ -10,13 +10,15 @@ package erc20
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 const (
-	IdxParamAccount  = 0
-	IdxParamAmount   = 1
-	IdxParamOwner    = 2
-	IdxParamSupply   = 3
-	IdxParamTo       = 4
-	IdxResultAmount  = 5
-	IdxResultSupply  = 6
+	IdxParamAccount = 0
+	IdxParamAmount  = 1
+	IdxParamOwner   = 2
+	IdxParamSupply  = 3
+	IdxParamTo      = 4
+
+	IdxResultAmount = 5
+	IdxResultSupply = 6
+
 	IdxStateBalances = 7
 	IdxStateOwner    = 8
 	IdxStateSupply   = 9
