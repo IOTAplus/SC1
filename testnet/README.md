@@ -249,9 +249,8 @@ uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPost
 $ wasp-cli chain call-view \
   erc20 totalSupply \
   --config wasp-cli/wasp-cli.json \
-  | wasp-cli decode string supply string
+  | wasp-cli decode string s int
 ```
-
 ## EVM setup
 ### Setting up an EVM Chain
 First of all you will need to deploy an [ISCP Chain](#deploy-a-chain) so the chain that we choose to create this time will be as follows:
