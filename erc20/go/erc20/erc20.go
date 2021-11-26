@@ -62,5 +62,6 @@ func viewBalanceOf(ctx wasmlib.ScViewContext, f *BalanceOfContext) {
 }
 
 func viewTotalSupply(ctx wasmlib.ScViewContext, f *TotalSupplyContext) {
+	ctx.Log("erc20.totalSupply!!!!!!!!!" + ctx.Utility().String(f.State.Supply().Value()))
 	f.Results.Supply().SetValue(f.State.Supply().Value())
 }
