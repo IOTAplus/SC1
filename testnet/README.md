@@ -245,11 +245,12 @@ uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPost
 ```
 
 ## Check total supply
-````
+```
 $ wasp-cli chain call-view \
   erc20 totalSupply \
   --config wasp-cli/wasp-cli.json \
   | wasp-cli decode string supply string
+```
 
 ## EVM setup
 ### Setting up an EVM Chain
