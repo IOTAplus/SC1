@@ -4,13 +4,13 @@ structs: {}
 typedefs: {}
 state:
   balances=b: map[AgentID]Int64 // balances per account
-  supply=s: Int64 // total supply of the token
+  supply: Int64 // total supply of the token
   owner: AgentID // owner of the sc
 funcs:
   init:
     params:
       owner=o: AgentID // creator/owner of the initial supply
-      supply=s: Int64 // initial token supply
+      supply: Int64 // initial token supply
   transfer:
     params:
       account=ac: AgentID // target account
@@ -28,4 +28,4 @@ views:
       amount: Int64
   totalSupply:
     results:
-      supply=s: Int64
+      supply: Int64
