@@ -230,13 +230,13 @@ $ go mod init github.com/iotaplus/SC1/erc20
 $ go get github.com/iotaledger/wasp/packages/vm/wasmclient
 $ go get github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib
 $ schema -go
-$ tinygo build -o erc20.wasm -target wasm go/main.go
+$ tinygo build -o test/erc20_bg.wasm -target wasm go/main.go
 ```
 ## Deploy the smart contract
 ```
 $ wasp-cli chain deploy-contract \
   wasmtime erc20 "ERC20 IEXP SC" \
-  sc1/erc20/erc20.wasm \
+  sc1/erc20/test/erc20_bg.wasm \
   string o agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
   string s int 10000000000 \
   --chain=iota-plus \
