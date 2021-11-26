@@ -12,39 +12,15 @@ import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
 func OnLoad() {
 	exports := wasmlib.NewScExports()
-	exports.AddFunc(FuncApprove, funcApproveThunk)
 	exports.AddFunc(FuncInit, funcInitThunk)
 	exports.AddFunc(FuncMint, funcMintThunk)
 	exports.AddFunc(FuncTransfer, funcTransferThunk)
-	exports.AddFunc(FuncTransferFrom, funcTransferFromThunk)
-	exports.AddView(ViewAllowance, viewAllowanceThunk)
 	exports.AddView(ViewBalanceOf, viewBalanceOfThunk)
 	exports.AddView(ViewTotalSupply, viewTotalSupplyThunk)
 
 	for i, key := range keyMap {
 		idxMap[i] = key.KeyID()
 	}
-}
-
-type ApproveContext struct {
-	Params ImmutableApproveParams
-	State  MutableERC20State
-}
-
-func funcApproveThunk(ctx wasmlib.ScFuncContext) {
-	ctx.Log("erc20.funcApprove")
-	f := &ApproveContext{
-		Params: ImmutableApproveParams{
-			id: wasmlib.OBJ_ID_PARAMS,
-		},
-		State: MutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	ctx.Require(f.Params.Amount().Exists(), "missing mandatory amount")
-	ctx.Require(f.Params.Delegation().Exists(), "missing mandatory delegation")
-	funcApprove(ctx, f)
-	ctx.Log("erc20.funcApprove ok")
 }
 
 type InitContext struct {
@@ -112,53 +88,6 @@ func funcTransferThunk(ctx wasmlib.ScFuncContext) {
 	ctx.Require(f.Params.Amount().Exists(), "missing mandatory amount")
 	funcTransfer(ctx, f)
 	ctx.Log("erc20.funcTransfer ok")
-}
-
-type TransferFromContext struct {
-	Params ImmutableTransferFromParams
-	State  MutableERC20State
-}
-
-func funcTransferFromThunk(ctx wasmlib.ScFuncContext) {
-	ctx.Log("erc20.funcTransferFrom")
-	f := &TransferFromContext{
-		Params: ImmutableTransferFromParams{
-			id: wasmlib.OBJ_ID_PARAMS,
-		},
-		State: MutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	ctx.Require(f.Params.Account().Exists(), "missing mandatory account")
-	ctx.Require(f.Params.Amount().Exists(), "missing mandatory amount")
-	ctx.Require(f.Params.Recipient().Exists(), "missing mandatory recipient")
-	funcTransferFrom(ctx, f)
-	ctx.Log("erc20.funcTransferFrom ok")
-}
-
-type AllowanceContext struct {
-	Params  ImmutableAllowanceParams
-	Results MutableAllowanceResults
-	State   ImmutableERC20State
-}
-
-func viewAllowanceThunk(ctx wasmlib.ScViewContext) {
-	ctx.Log("erc20.viewAllowance")
-	f := &AllowanceContext{
-		Params: ImmutableAllowanceParams{
-			id: wasmlib.OBJ_ID_PARAMS,
-		},
-		Results: MutableAllowanceResults{
-			id: wasmlib.OBJ_ID_RESULTS,
-		},
-		State: ImmutableERC20State{
-			id: wasmlib.OBJ_ID_STATE,
-		},
-	}
-	ctx.Require(f.Params.Account().Exists(), "missing mandatory account")
-	ctx.Require(f.Params.Delegation().Exists(), "missing mandatory delegation")
-	viewAllowance(ctx, f)
-	ctx.Log("erc20.viewAllowance ok")
 }
 
 type BalanceOfContext struct {

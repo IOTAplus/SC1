@@ -9,11 +9,6 @@ package erc20
 
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
-type ApproveCall struct {
-	Func   *wasmlib.ScFunc
-	Params MutableApproveParams
-}
-
 type InitCall struct {
 	Func   *wasmlib.ScInitFunc
 	Params MutableInitParams
@@ -27,17 +22,6 @@ type MintCall struct {
 type TransferCall struct {
 	Func   *wasmlib.ScFunc
 	Params MutableTransferParams
-}
-
-type TransferFromCall struct {
-	Func   *wasmlib.ScFunc
-	Params MutableTransferFromParams
-}
-
-type AllowanceCall struct {
-	Func    *wasmlib.ScView
-	Params  MutableAllowanceParams
-	Results ImmutableAllowanceResults
 }
 
 type BalanceOfCall struct {
@@ -55,12 +39,6 @@ type Funcs struct{}
 
 var ScFuncs Funcs
 
-func (sc Funcs) Approve(ctx wasmlib.ScFuncCallContext) *ApproveCall {
-	f := &ApproveCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncApprove)}
-	f.Func.SetPtrs(&f.Params.id, nil)
-	return f
-}
-
 func (sc Funcs) Init(ctx wasmlib.ScFuncCallContext) *InitCall {
 	f := &InitCall{Func: wasmlib.NewScInitFunc(ctx, HScName, HFuncInit, keyMap[:], idxMap[:])}
 	f.Func.SetPtrs(&f.Params.id, nil)
@@ -76,18 +54,6 @@ func (sc Funcs) Mint(ctx wasmlib.ScFuncCallContext) *MintCall {
 func (sc Funcs) Transfer(ctx wasmlib.ScFuncCallContext) *TransferCall {
 	f := &TransferCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncTransfer)}
 	f.Func.SetPtrs(&f.Params.id, nil)
-	return f
-}
-
-func (sc Funcs) TransferFrom(ctx wasmlib.ScFuncCallContext) *TransferFromCall {
-	f := &TransferFromCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncTransferFrom)}
-	f.Func.SetPtrs(&f.Params.id, nil)
-	return f
-}
-
-func (sc Funcs) Allowance(ctx wasmlib.ScViewCallContext) *AllowanceCall {
-	f := &AllowanceCall{Func: wasmlib.NewScView(ctx, HScName, HViewAllowance)}
-	f.Func.SetPtrs(&f.Params.id, &f.Results.id)
 	return f
 }
 

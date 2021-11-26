@@ -16,13 +16,11 @@ const (
 )
 
 const (
-	ParamAccount    = wasmlib.Key("ac")
-	ParamAmount     = wasmlib.Key("amount")
-	ParamDelegation = wasmlib.Key("d")
-	ParamOwner      = wasmlib.Key("o")
-	ParamRecipient  = wasmlib.Key("r")
-	ParamSupply     = wasmlib.Key("s")
-	ParamTo         = wasmlib.Key("to")
+	ParamAccount = wasmlib.Key("ac")
+	ParamAmount  = wasmlib.Key("amount")
+	ParamOwner   = wasmlib.Key("o")
+	ParamSupply  = wasmlib.Key("s")
+	ParamTo      = wasmlib.Key("to")
 )
 
 const (
@@ -31,30 +29,23 @@ const (
 )
 
 const (
-	StateAllowances = wasmlib.Key("a")
-	StateBalances   = wasmlib.Key("b")
-	StateOwner      = wasmlib.Key("owner")
-	StateSupply     = wasmlib.Key("s")
+	StateBalances = wasmlib.Key("b")
+	StateOwner    = wasmlib.Key("owner")
+	StateSupply   = wasmlib.Key("s")
 )
 
 const (
-	FuncApprove      = "approve"
-	FuncInit         = "init"
-	FuncMint         = "mint"
-	FuncTransfer     = "transfer"
-	FuncTransferFrom = "transferFrom"
-	ViewAllowance    = "allowance"
-	ViewBalanceOf    = "balanceOf"
-	ViewTotalSupply  = "totalSupply"
+	FuncInit        = "init"
+	FuncMint        = "mint"
+	FuncTransfer    = "transfer"
+	ViewBalanceOf   = "balanceOf"
+	ViewTotalSupply = "totalSupply"
 )
 
 const (
-	HFuncApprove      = wasmlib.ScHname(0xa0661268)
-	HFuncInit         = wasmlib.ScHname(0x1f44d644)
-	HFuncMint         = wasmlib.ScHname(0xa29addcf)
-	HFuncTransfer     = wasmlib.ScHname(0xa15da184)
-	HFuncTransferFrom = wasmlib.ScHname(0xd5e0a602)
-	HViewAllowance    = wasmlib.ScHname(0x5e16006a)
-	HViewBalanceOf    = wasmlib.ScHname(0x67ef8df4)
-	HViewTotalSupply  = wasmlib.ScHname(0x9505e6ca)
+	HFuncInit        = wasmlib.ScHname(0x1f44d644)
+	HFuncMint        = wasmlib.ScHname(0xa29addcf)
+	HFuncTransfer    = wasmlib.ScHname(0xa15da184)
+	HViewBalanceOf   = wasmlib.ScHname(0x67ef8df4)
+	HViewTotalSupply = wasmlib.ScHname(0x9505e6ca)
 )

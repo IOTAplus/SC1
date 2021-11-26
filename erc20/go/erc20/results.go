@@ -8,22 +8,6 @@
 package erc20
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 
-type ImmutableAllowanceResults struct {
-	id int32
-}
-
-func (s ImmutableAllowanceResults) Amount() wasmlib.ScImmutableInt64 {
-	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxResultAmount])
-}
-
-type MutableAllowanceResults struct {
-	id int32
-}
-
-func (s MutableAllowanceResults) Amount() wasmlib.ScMutableInt64 {
-	return wasmlib.NewScMutableInt64(s.id, idxMap[IdxResultAmount])
-}
-
 type ImmutableBalanceOfResults struct {
 	id int32
 }

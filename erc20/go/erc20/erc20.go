@@ -7,9 +7,6 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
 )
 
-func funcApprove(ctx wasmlib.ScFuncContext, f *ApproveContext) {
-}
-
 func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
 	supply := f.Params.Supply().Value()
 	ctx.Require(supply > 0, "ERC20: supply must be greater than 0")
@@ -55,12 +52,6 @@ func funcTransfer(ctx wasmlib.ScFuncContext, f *TransferContext) {
 	targetBalance.SetValue(targetBalance.Value() + amount)
 
 	// ctx.Event(fmt.Sprintf("Tranfer %d IEXP tokens to account %d", amount, targetBalance.Value()))
-}
-
-func funcTransferFrom(ctx wasmlib.ScFuncContext, f *TransferFromContext) {
-}
-
-func viewAllowance(ctx wasmlib.ScViewContext, f *AllowanceContext) {
 }
 
 func viewBalanceOf(ctx wasmlib.ScViewContext, f *BalanceOfContext) {
