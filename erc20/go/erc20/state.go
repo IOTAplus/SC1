@@ -6,15 +6,8 @@
 // Change the json schema instead
 
 package erc20
+
 import "github.com/iotaledger/wasp/packages/vm/wasmlib/go/wasmlib"
-
-type MapAgentIDToImmutableInt64 struct {
-	objID int32
-}
-
-func (m MapAgentIDToImmutableInt64) GetInt64(key wasmlib.ScAgentID) wasmlib.ScImmutableInt64 {
-	return wasmlib.NewScImmutableInt64(m.objID, key.KeyID())
-}
 
 type ImmutableERC20State struct {
 	id int32
@@ -31,18 +24,6 @@ func (s ImmutableERC20State) Owner() wasmlib.ScImmutableAgentID {
 
 func (s ImmutableERC20State) Supply() wasmlib.ScImmutableInt64 {
 	return wasmlib.NewScImmutableInt64(s.id, idxMap[IdxStateSupply])
-}
-
-type MapAgentIDToMutableInt64 struct {
-	objID int32
-}
-
-func (m MapAgentIDToMutableInt64) Clear() {
-	wasmlib.Clear(m.objID)
-}
-
-func (m MapAgentIDToMutableInt64) GetInt64(key wasmlib.ScAgentID) wasmlib.ScMutableInt64 {
-	return wasmlib.NewScMutableInt64(m.objID, key.KeyID())
 }
 
 type MutableERC20State struct {
