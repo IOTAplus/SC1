@@ -3,17 +3,17 @@ description: ERC-20 PoC for IOTA Smart Contracts
 structs: {}
 typedefs: {}
 state:
-  balances=b: map[AgentID]Int64 // balances per account
+  balances: map[AgentID]Int64 // balances per account
   supply: Int64 // total supply of the token
   owner: AgentID // owner of the sc
 funcs:
   init:
     params:
-      owner=o: AgentID // creator/owner of the initial supply
+      owner: AgentID // creator/owner of the initial supply
       supply: Int64 // initial token supply
   transfer:
     params:
-      account=ac: AgentID // target account
+      account: AgentID // target account
       amount: Int64 // amount of tokens to transfer
   mint:
     access: owner
@@ -23,7 +23,7 @@ funcs:
 views:
   balanceOf:
     params:
-      account=ac: AgentID // sender account
+      account: AgentID // sender account
     results:
       amount: Int64
   totalSupply:

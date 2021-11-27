@@ -16,22 +16,22 @@ const (
 )
 
 const (
-	ParamAccount = "ac"
+	ParamAccount = "account"
 	ParamAmount  = "amount"
-	ParamOwner   = "o"
-	ParamSupply  = "s"
+	ParamOwner   = "owner"
+	ParamSupply  = "supply"
 	ParamTo      = "to"
 )
 
 const (
 	ResultAmount = "amount"
-	ResultSupply = "s"
+	ResultSupply = "supply"
 )
 
 const (
-	StateBalances = "b"
+	StateBalances = "balances"
 	StateOwner    = "owner"
-	StateSupply   = "s"
+	StateSupply   = "supply"
 )
 
 const (
