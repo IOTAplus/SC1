@@ -172,3 +172,17 @@ func TestMint(t *testing.T) {
 	require.True(t, balance.Exists())
 	require.EqualValues(t, int64(amountToMint), balance.Value())
 }
+
+func TestMintNoPermissionError(t *testing.T) {
+	ctx, _, creator := setupInit(t)
+	recipient1 := ctx.NewSoloAgent()
+
+	amountToMint := uint64(100)
+
+	mint := erc20.ScFuncs.Mint(ctx.Sign(recipient1))
+	mint.Params.To().SetValue(creator.ScAgentID())
+	mint.Params.Amount().SetValue(int64(amountToMint))
+	mint.Func.Post()
+	mint.Func.TransferIotas(1).Post()
+	require.Error(t, ctx.Err)
+}

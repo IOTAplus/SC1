@@ -237,8 +237,8 @@ $ tinygo build -o test/erc20_bg.wasm -target wasm go/main.go
 $ wasp-cli chain deploy-contract \
   wasmtime erc20 "ERC20 IEXP SC" \
   sc1/erc20/test/erc20_bg.wasm \
-  string o agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
-  string s int 10000000000 \
+  string owner agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
+  string supply int 10000000000 \
   --chain=iota-plus \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
@@ -249,8 +249,73 @@ uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPost
 $ wasp-cli chain call-view \
   erc20 totalSupply \
   --config wasp-cli/wasp-cli.json \
-  | wasp-cli decode string s int
+  | wasp-cli decode string supply int
 ```
+
+## Check balance of creator
+```
+$ wasp-cli chain call-view \
+  erc20 balanceOf \
+  string account agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
+  --config wasp-cli/wasp-cli.json \
+  | wasp-cli decode string amount int
+```
+
+## Transfer 20 tokens from creator to recipient agent
+```
+$ wasp-cli chain post-request \
+  erc20 transfer \
+  string account agentid A/1GQtsv5qUaihPA1jLdrhB423tfNEwhZpaLuAKLkwkuMcD::00000000 \
+  string amount int 20 \
+  --config wasp-cli/wasp-cli.json
+```
+
+## Transfer 20 tokens from creator to recipient agent using webapi WIP
+```
+$ curl http://31.220.111.3:9090/request/jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1 \
+  -H 'Content-Type: application/json' \
+  -d '{"args":{"account":"A/1GQtsv5qUaihPA1jLdrhB423tfNEwhZpaLuAKLkwkuMcD::00000000","amount":20},"chainID":"jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1","contract":"52888228","publicKey":"6aNowWHAxVayTYGcevwxA9Xo3MWmYQL1eZxWB7gqHtRz","sender":"A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000","transfer":{"IOTA":1}}'
+```
+
+## Check balance of recipient agent using creator wallet
+```
+$ wasp-cli chain call-view \
+  erc20 balanceOf \
+  string account agentid A/1GQtsv5qUaihPA1jLdrhB423tfNEwhZpaLuAKLkwkuMcD::00000000 \
+  --config wasp-cli/wasp-cli.json \
+  | wasp-cli decode string amount int
+amount: 20
+```
+
+## Check balance of recipient agent using recipient agent wallet
+```
+$ wasp-cli chain call-view \
+  erc20 balanceOf \
+  string account agentid A/1GQtsv5qUaihPA1jLdrhB423tfNEwhZpaLuAKLkwkuMcD::00000000 \
+  --config wasp-cli-test/wasp-cli.json \
+  | wasp-cli decode string amount int
+amount: 20
+```
+
+## Check balance of creator using creator wallet
+```
+$ wasp-cli chain call-view \
+  erc20 balanceOf \
+  string account agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
+  --config wasp-cli/wasp-cli.json \
+  | wasp-cli decode string amount int
+amount: 9999999980
+```
+
+## Mint tokens to creator using creator wallet
+```
+$ wasp-cli chain post-request \
+  erc20 mint \
+  string to agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
+  string amount int 100 \
+  --config wasp-cli/wasp-cli.json
+```
+
 ## EVM setup
 ### Setting up an EVM Chain
 First of all you will need to deploy an [ISCP Chain](#deploy-a-chain) so the chain that we choose to create this time will be as follows:
