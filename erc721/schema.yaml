@@ -1,0 +1,19 @@
+name: ERC721
+description: ERC721 description
+events: {}
+structs: {}
+typedefs: {}
+state:
+  owner: AgentID // current owner of this smart contract
+funcs:
+  init:
+    params:
+      owner: AgentID? // optional owner of this smart contract
+  setOwner:
+    access: owner // current owner of this smart contract
+    params:
+      owner: AgentID // new owner of this smart contract
+views:
+  getOwner:
+    results:
+      owner: AgentID // current owner of this smart contract
