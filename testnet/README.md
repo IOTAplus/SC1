@@ -340,6 +340,7 @@ $ wasp-cli chain deposit \
 ```
 
 ### Deploy the EVM Chain
+The alloc is the owner address on metamask, after ":" is the amount of wei that are allocated to this address.
 ```
 $ wasp-cli chain evm deploy \
   --name evm-chain \
@@ -352,6 +353,7 @@ evm-chain contract successfully deployed.
 ```
 
 ### Running the JSON RPC Interface Server
+This json rpc runs by default on port 8545.(this is important to metamask configutation)
 ```
 $ nohup wasp-cli chain evm jsonrpc \
   --name evm-chain \
