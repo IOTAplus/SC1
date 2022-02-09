@@ -203,8 +203,8 @@ Address index 0
 $ wasp-cli chain deploy \
   --committee=0 \
   --quorum=1 \
-  --chain=iota-plus \
-  --description="IOTA Plus Chain" \
+  --chain=iscp-chain \
+  --description="IOTA ISCP Chain" \
   --config wasp-cli/wasp-cli.json
 ...
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
@@ -214,7 +214,7 @@ chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ3
 ```
 $ wasp-cli chain deposit \
   IOTA:10000 \
-  --chain iota-plus \
+  --chain iscp-chain \
   --config wasp-cli/wasp-cli.json
 Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
   - #0 (check result with: wasp-cli chain request 5hrXdCvzJXzmy9DQR3f1gDPrrAd5Auw7tYhPRabN6pB6kQw)
@@ -239,7 +239,7 @@ $ wasp-cli chain deploy-contract \
   sc1/erc20/test/erc20_bg.wasm \
   string owner agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
   string supply int 10000000000 \
-  --chain=iota-plus \
+  --chain=iscp-chain \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
 ```
@@ -316,28 +316,47 @@ $ wasp-cli chain post-request \
   --config wasp-cli/wasp-cli.json
 ```
 
+wallet creator
+1. the wallet creator purchase the iotas or send a request for funds to testnet
+2. Color IOTAs to IEXP color tokens (L1) in the wallet creator
+3. Deploys the chain iscp-chain
+4. Make a deposit of IEXP color tokens into the chain (L1)
+
+
+
+accounts SC
+balances
+{
+  "IOTA": {
+    "A/jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1::00000000": 250,
+    "A/jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1::52888228": 2500,
+  }
+  "IEXP": {
+    "A/jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1::00000000": 1,
+    "A/jSYSihqTpi9rov6CUaZaK13YNZfmSrJHBDM1ePQTjuA1::52888228": 10,
+  }
+}
+
+purchase
+  params:
+    amount of IOTAS
+  result:
+    amount of IEXP color tokens
+
+accounts core SC
+  My Own IEXP balance
+    total balance: 2500
+    next total balance: 2500 - 250
+erc20 SC
+  My Own SC Tokens balance
+    total balance: 0
+    next total balance: 1
+
 ## EVM setup
 ### Setting up an EVM Chain
-First of all you will need to deploy an [ISCP Chain](#deploy-a-chain) so the chain that we choose to create this time will be as follows:
-
-```
-$ wasp-cli chain deploy \
-  --committee=0 \
-  --quorum=1 \
-  --chain=iscp-chain \    
-  --description="ISCP Chain" \ 
-  --config wasp-cli/wasp-cli.json
-...
-chain has been created successfully on the Tangle. ChainID: $/rF8hHRa1fELwTZu6nvt38nrsgRQgVxqkTMnDiYGVET2F, State address: L7wRpVhingmFbwQ64LLEc4bVnpkCxs8Cj6EWBswpHNQn, N = 1, T = 1
-```
-
-### Deposit funds to the new ISCP Chain 10000 IOTAs by default
-```
-$ wasp-cli chain deposit \
-  IOTA:10000 \
-  --config wasp-cli/wasp-cli.json \
-  --chain iscp-chain
-```
+- First you will need to deploy an [ISCP Chain](#deploy-a-chain)
+- Then deposit [10000 IOTAs funds to the chain](#deposit-funds-to-the-chain-10000-IOTAs)
+- Then run the [Trust setup](#trust-setup)
 
 ### Deploy the EVM Chain
 The alloc is the owner address on metamask, after ":" is the amount of wei that are allocated to this address.
@@ -345,7 +364,7 @@ The alloc is the owner address on metamask, after ":" is the amount of wei that 
 $ wasp-cli chain evm deploy \
   --name evm-chain \
   --description "EVM Chain" \
-  --alloc 0xc45AAA6AF36B81296d6Bbeb463d0130bC48e7567:1000000000000000000000000 \
+  --alloc 0xcAd7e39123D161aD8C4C42Ae6813297fe75aFdDd:1000000000000000000000000 \
   --config wasp-cli/wasp-cli.json \
   --chain iscp-chain
 Posted off-ledger request (check result with: wasp-cli chain request 3saZUJ33ATRoSKdJLNbt8nroUS1PcoZpwNwMu7MhfJMrTBD)
@@ -364,4 +383,71 @@ $ nohup wasp-cli chain evm jsonrpc \
 ### How to stop the JSON RPC Interface Server
 ```
 $ ps aux | grep wasp-cli | awk '{print $2}' | xargs kill -9
+```
+
+
+```
+default deployment
+setRate(1/250)
+
+
+##### 
+in crowdsale
+
+import erc20
+
+function buyTokens(address beneficiary, iotaAmount) {
+
+  // calculate token amount to be created
+  tokenAmount = getTokenAmount(iotaAmount);
+
+  // update state
+  iotaRaised = iotaRaised + iotaAmount;
+
+  deliverTokens(beneficiary, tokenAmount);
+
+  _updatePurchasingState(beneficiary, iotaAmount);
+
+  _forwardFunds();
+  _postValidatePurchase(beneficiary, iotaAmount);
+}
+
+function getTokenAmount(iotaAmount)  {
+    return iotaAmount * rate;
+}
+
+function _deliverTokens(address beneficiary, uint256 tokenAmount) internal {
+        // Potentially dangerous assumption about the type of the token.
+        require(
+            ERC20Mintable(address(token())).mint(beneficiary, tokenAmount),
+                "MintedCrowdsale: minting failed"
+        );
+    }
+
+function deliverTokens(address beneficiary, tokenAmount = 500 M IEXP) {
+
+  // 500 M IEXP
+  total = erc20.totalSupply + tokenAmount
+
+  if (
+      crowdsale.getRate() == 1/250
+      AND erc20.totalSupply > 1.5B IEXP
+      AND erc20.totalSupply <= (1.5B IEXP + 1.275 B IEXP)
+    ) {
+
+    crowdsale.setRate(1/1000)
+  }
+
+  else if (
+    crowdsale.getRate() == 1/1000
+    AND erc20.totalSupply > (1.5B IEXP + 1.275 B IEXP)
+    AND erc20.totalSupply <= (1.5B IEXP + 1.275 B IEXP + "NEW % of IEXP")
+  ) {
+
+    crowdsale.setRate(1/2000)
+  }
+
+  erc20.mint(beneficiary, tokenAmount)
+}
+
 ```
