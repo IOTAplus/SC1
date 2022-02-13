@@ -59,10 +59,10 @@ $ sudo make install-shared INSTALL_PATH=/usr
 
 ### CLI Wallet setup
 In order to get the latest binary you can go to https://github.com/iotaledger/goshimmer/releases
-and download `cli-wallet-0.8.0_Linux_x86_64.tar.gz` as an example and extract it to `~/bin`
+and download `cli-wallet-0.8.5_Linux_x86_64.tar.gz` as an example and extract it to `~/bin`
 ```
-$ wget https://github.com/iotaledger/goshimmer/releases/download/v0.8.0/cli-wallet-0.8.0_Linux_x86_64.tar.gz
-$ tar -xvzf cli-wallet-0.8.0_Linux_x86_64.tar.gz
+$ wget https://github.com/iotaledger/goshimmer/releases/download/v0.8.5/cli-wallet-0.8.5_Linux_x86_64.tar.gz
+$ tar -xvzf cli-wallet-0.8.5_Linux_x86_64.tar.gz
 $ mkdir bin
 $ cd bin
 $ mv ../cli-wallet-0.8.0_Linux_x86_64/* .
@@ -189,7 +189,11 @@ JCwkc4WqKZzc3spRzWDA8jRFDF4YTo1rBezG8hBj6pge  127.0.0.1:4000
 ```
 $ wasp-cli request-funds --config wasp-cli/wasp-cli.json
 Request funds for address 1BH6VTcoo2qND32oF1xaNqR5RKiPV4wh8xhP8WMqmG9hh: success
-$ wasp-cli balance --config wasp-cli/wasp-cli.json 
+```
+
+### Check the balance
+```
+$ wasp-cli balance --config wasp-cli/wasp-cli.json
 Address index 0
   Address: 1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ
   Balance:
@@ -204,16 +208,16 @@ $ wasp-cli chain deploy \
   --committee=0 \
   --quorum=1 \
   --chain=iscp-chain \
-  --description="IOTA ISCP Chain" \
+  --description="ISCP Chain" \
   --config wasp-cli/wasp-cli.json
 ...
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
-### Deposit funds to the chain 10000 IOTAs
+### Deposit funds to the chain 100000 IOTAs
 ```
 $ wasp-cli chain deposit \
-  IOTA:10000 \
+  IOTA:100000 \
   --chain iscp-chain \
   --config wasp-cli/wasp-cli.json
 Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
@@ -354,28 +358,29 @@ erc20 SC
 
 ## EVM setup
 ### Setting up an EVM Chain
-- First you will need to deploy an [ISCP Chain](#deploy-a-chain)
-- Then deposit [10000 IOTAs funds to the chain](#deposit-funds-to-the-chain-10000-IOTAs)
-- Then run the [Trust setup](#trust-setup)
+- [Run the wasp node](#running-the-wasp-node)
+- Then [add the node as trusted](#trust-setup)
+- Then you will need to deploy an [ISCP Chain](#deploy-a-chain)
+- Then deposit [100000 IOTAs funds to the chain](#deposit-funds-to-the-chain-100000-IOTAs)
 
-### Deploy the EVM Chain
+### Deploy the EVM Smart Contract
 The alloc is the owner address on metamask, after ":" is the amount of wei that are allocated to this address.
 ```
 $ wasp-cli chain evm deploy \
-  --name evm-chain \
-  --description "EVM Chain" \
-  --alloc 0xcAd7e39123D161aD8C4C42Ae6813297fe75aFdDd:1000000000000000000000000 \
+  --name evm-sc \
+  --description "EVM SC" \
+  --alloc 0xcAd7e39123D161aD8C4C42Ae6813297fe75aFdDd:6000000000000000000000 \
   --config wasp-cli/wasp-cli.json \
   --chain iscp-chain
 Posted off-ledger request (check result with: wasp-cli chain request 3saZUJ33ATRoSKdJLNbt8nroUS1PcoZpwNwMu7MhfJMrTBD)
-evm-chain contract successfully deployed.
+evm-sc contract successfully deployed.
 ```
 
 ### Running the JSON RPC Interface Server
 This json rpc runs by default on port 8545.(this is important to metamask configutation)
 ```
 $ nohup wasp-cli chain evm jsonrpc \
-  --name evm-chain \
+  --name evm-sc \
   --chainid 1074 \
   --config wasp-cli/wasp-cli.json > /dev/null 2>&1 &
 ```
