@@ -214,10 +214,10 @@ $ wasp-cli chain deploy \
 chain has been created successfully on the Tangle. ChainID: $/su8MqwXYTZkvbPtNZ34NvFQdQacaGronoJcC8WFdhpp5, State address: azJpRmAFgKgc2ZewLQgu5twWMPG5oBHMAhyf46EAaKbr, N = 1, T = 1
 ```
 
-### Deposit funds to the chain 100000 IOTAs
+### Deposit funds to the chain 10000 IOTAs
 ```
 $ wasp-cli chain deposit \
-  IOTA:100000 \
+  IOTA:10000 \
   --chain iscp-chain \
   --config wasp-cli/wasp-cli.json
 Posted on-ledger transaction F1LLGyctXvncauoZJHu3CRWxBxNfG4xhX12MfkgXctmX containing 1 request:
@@ -242,7 +242,7 @@ $ wasp-cli chain deploy-contract \
   wasmtime erc20 "ERC20 IEXP SC" \
   sc1/erc20/test/erc20_bg.wasm \
   string owner agentid A/1CXdFSVdcLpeLyDvP3ZME9wYbXtJNxxmw7tFpdfxtCSvQ::00000000 \
-  string supply int 10000000000 \
+  string supply int 10000 \
   --chain=iscp-chain \
   --config wasp-cli/wasp-cli.json
 uploaded blob to chain -- hash: F41ZuJTfpycQqHauVqVwQaPMLbJWCeHcmeHHisbumfpaPosted off-ledger request (check result with: wasp-cli chain request 5xcTGbnHcQKB1j4k6bx8pgh72AGg3e45guqcmmCT74kchps)
@@ -361,7 +361,7 @@ erc20 SC
 - [Run the wasp node](#running-the-wasp-node)
 - Then [add the node as trusted](#trust-setup)
 - Then you will need to deploy an [ISCP Chain](#deploy-a-chain)
-- Then deposit [100000 IOTAs funds to the chain](#deposit-funds-to-the-chain-100000-IOTAs)
+- Then deposit [10000 IOTAs funds to the chain](#deposit-funds-to-the-chain-10000-IOTAs)
 
 ### Deploy the EVM Smart Contract
 The alloc is the owner address on metamask, after ":" is the amount of wei that are allocated to this address.
